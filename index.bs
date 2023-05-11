@@ -12,7 +12,9 @@ Markup Shorthands: markdown yes
 Boilerplate: omit conformance, omit copyright
 </pre>
 
+
 # Context # {#context}
+Test [link](./checklist.html)
 
 The [Partnership for Carbon Transparency (PACT)](https://www.carbon-transparency.com/) initiative is continuously
 evolving and bringing together organizations and industry initiatives to exchange accurate and primary data-based
@@ -69,7 +71,7 @@ extension provides instructions for doing so, the testing process shall cover th
 
 A host system under test has satisfied a PACT conformance test <strong>if the 3rd party declares it has performed a PACT
 conformance test with the host system under test, and that the behaviour of the host system under test was conforming to
-the specification</strong> (see e.g. [[Section 4.2] TODO] of this document for a checklist).
+the specification</strong> (see e.g. [[#checklist]] of this document for a checklist).
 
 ## What is <em>not yet</em> in scope of the PACT conformance testing? ## {#out-of-scope}
 
@@ -101,10 +103,12 @@ A Connectathon is open for invited parties and logically consists of
 
 ## Connectathon Process ## {#connectathon-process}
 
-Organizations can [[Onboard their Solution to PACT Online Catalog] TODO] before or after the Connectathon.
+Organizations can [Onboard their Solution to PACT Online Catalog](#submit-solution-process) before or after the Connectathon.
 
 Please refer the process below -
-<img alt="TODO" src="images/connectathon-process.png" />
+<figure>
+  <img alt="TODO" src="images/connectathon-process.png" />
+</figure
 
 Note: <strong><em>Connectathons will be conducted on a Monthly basis</em></strong>
 
@@ -160,7 +164,7 @@ it. Please Refer below -
   <li> Click the first “Go to GitHub”  button under the “Developing Solutions?” option
     <ul>
       <li> You will be taken directly to the [WBCSD PACT Online Catalog repo](https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_SOLUTION.md).
-      <li> ollow the process as described in the CONTRIB_SOLUTION.md to Submit a Pull Request (PR) for your Solution
+      <li> Follow the process as described in the CONTRIB_SOLUTION.md to Submit a Pull Request (PR) for your Solution
     </ul>
   <li> Once the Pull Request is submitted (above step), the Pull Request will be reviewed for completeness. If all
   details are filled out correctly, the PR will be merged and the Conforming Solution will appear under the “[Solutions](https://pact-catalog.sine.dev/solutions)"

@@ -1,7 +1,7 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <title>PACT Conformance Testing</title>
+  <title>PACT Conformance Testing Checklist</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
@@ -1488,7 +1488,7 @@ Possible extra rowspan handling
 	}
 </style>
   <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
-  <link href="https://wbcsd.github.io/pact-conformance-testing/" rel="canonical">
+  <link href="https://wbcsd.github.io/pact-conformance-testing/checklist" rel="canonical">
   <meta content="ee03ebd8db51894384408ca4e4306df9316692a0" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -1895,16 +1895,14 @@ dfn > a.self-link::before      { content: "#"; }
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">PACT Conformance Testing</h1>
+   <h1 class="p-name no-ref" id="title">PACT Conformance Testing Checklist</h1>
    <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Document, <time class="dt-updated" datetime="2023-05-11">11 May 2023</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="https://wbcsd.github.io/pact-conformance-testing/">https://wbcsd.github.io/pact-conformance-testing/</a>
+     <dd><a class="u-url" href="https://wbcsd.github.io/pact-conformance-testing/checklist">https://wbcsd.github.io/pact-conformance-testing/checklist</a>
      <dt>Feedback:
-     <dd><span><a href="mailto:public-dev@pathfinder.sine.dev?subject=%5Bpact-conf-test%5D%20YOUR%20TOPIC%20HERE">public-dev@pathfinder.sine.dev</a> with subject line “<kbd>[pact-conf-test] <i data-lt>… message topic …</i></kbd>”</span>
-     <dt>Issue Tracking:
-     <dd><a href="https://github.com/wbcsd/pact-conformance-testing/issues/">GitHub</a>
+     <dd><span><a href="mailto:public-dev@pathfinder.sine.dev?subject=%5Bpact-conf-test-checklist%5D%20YOUR%20TOPIC%20HERE">public-dev@pathfinder.sine.dev</a> with subject line “<kbd>[pact-conf-test-checklist] <i data-lt>… message topic …</i></kbd>”</span>
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><span class="p-name fn"></span>
     </dl>
@@ -1914,201 +1912,93 @@ dfn > a.self-link::before      { content: "#"; }
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This document provides the general guidelines for conformance testing within the PACT ecosystem.</p>
+   <p>Checklist for conformance testing within the PACT ecosystem.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
-    <li><a href="#context"><span class="secno">1</span> <span class="content">Context</span></a>
+    <li><a href="#background"><span class="secno">1</span> <span class="content">Background: Definition of Conformance</span></a>
     <li>
-     <a href="#overview"><span class="secno">2</span> <span class="content">PACT Conformance Testing Overview</span></a>
+     <a href="#checklist-v1-v2"><span class="secno">2</span> <span class="content">Checklist of/for Functionality for V1.0.1 &amp; V2.0.1</span></a>
      <ol class="toc">
-      <li><a href="#focus-and-scope"><span class="secno">2.1</span> <span class="content">What is the focus and scope of PACT conformance testing?</span></a>
-      <li><a href="#satisfaction"><span class="secno">2.2</span> <span class="content">When does a host system under test satisfy a PACT conformance test?</span></a>
-      <li><a href="#out-of-scope"><span class="secno">2.3</span> <span class="content">What is <em>not yet</em> in scope of the PACT conformance testing?</span></a>
+      <li><a href="#v1-v2-mandatory"><span class="secno">2.1</span> <span class="content">Mandatory Functionality</span></a>
      </ol>
     <li>
-     <a href="#connectathons"><span class="secno">3</span> <span class="content">Connectathons</span></a>
+     <a href="#additional-v2"><span class="secno">3</span> <span class="content">Additional Checklist of/for Functionality for V2.0.0</span></a>
      <ol class="toc">
-      <li><a href="#connectathon-process"><span class="secno">3.1</span> <span class="content">Connectathon Process</span></a>
+      <li><a href="#v2-mandatory"><span class="secno">3.1</span> <span class="content">Mandatory Functionality</span></a>
+      <li><a href="#v2-optional"><span class="secno">3.2</span> <span class="content">Optional (sic!) Functionality</span></a>
      </ol>
-    <li>
-     <a href="#conducting-conformance-test"><span class="secno">4</span> <span class="content">Conducting a PACT Conformance Testing</span></a>
-     <ol class="toc">
-      <li><a href="#conformance-test-process"><span class="secno">4.1</span> <span class="content">Process</span></a>
-      <li><a href="#checklist"><span class="secno">4.2</span> <span class="content">PACT Conformance Test criteria (Checklist)</span></a>
-     </ol>
-    <li>
-     <a href="#onboarding"><span class="secno">5</span> <span class="content">Onboarding Solutions to the PACT Online Catalog</span></a>
-     <ol class="toc">
-      <li><a href="#submit-solution-process"><span class="secno">5.1</span> <span class="content">Process to Submit a Solution in Online Catalog</span></a>
-     </ol>
-    <li><a href="#faqs"><span class="secno">6</span> <span class="content">FAQs</span></a>
-    <li><a href="#resources"><span class="secno">7</span> <span class="content">Resources</span></a>
    </ol>
   </nav>
   <main>
-   <h2 class="heading settled" data-level="1" id="context"><span class="secno">1. </span><span class="content">Context</span><a class="self-link" href="#context"></a></h2>
-    Test <a href="./checklist.html">link</a> 
-   <p>The <a href="https://www.carbon-transparency.com/">Partnership for Carbon Transparency (PACT)</a> initiative is continuously
-evolving and bringing together organizations and industry initiatives to exchange accurate and primary data-based
-Product (Carbon) Footprints irrespective of geography and industry. The technical foundation for this exchange is
-currently the <strong>Pathfinder Framework</strong> and <strong>Technical Specifications</strong> for achieving
-interoperability.</p>
-   <p>If a company wants to exchange Product Footprint information in a truly interoperable way, it then either needs to
-implement these foundations or look for an existing solution. In both cases, companies need to be able to assess the <strong>conformance</strong> of their software and solutions.</p>
-   <p>This document defines the overall process of testing the conformance of software implementations, and the requirements
-for having a solution listed publicly online on the <strong>PACT Online Catalog</strong>.</p>
-   <h2 class="heading settled" data-level="2" id="overview"><span class="secno">2. </span><span class="content">PACT Conformance Testing Overview</span><a class="self-link" href="#overview"></a></h2>
-   <p>Conformance testing is a process of verifying if a product or service meets specific standards or specifications. In the
-context of PACT this is the process of verifying that a solution or system implements the <a href="https://www.carbon-transparency.com/media/b13h4b25/pathfinder-framework_report_final.pdf">Pathfinder Framework</a> and
-technical specifications.</p>
-   <p>As the technical and solution landscape in the PACT context is rapidly evolving, in a first step a very
-“<strong>lean</strong>” and <strong>minimal process</strong> is defined. This process will evolve further in scope and
-complexity, and include software-based automation in the future.</p>
-   <div class="example" id="example-de7a7100">
-    <a class="self-link" href="#example-de7a7100"></a> What is a PACT Conformant Solution? 
-    <dl>
-     <dt data-md>A PACT conformant solution “A” is defined as a solution which:
-     <dd data-md>
-      <p>Was tested for conformity with a specific version of the technical specifications with 2 or more other solutions</p>
-     <dd data-md>
-      <p>Where the other solutions independently confirm the conformance of solution “A”</p>
-    </dl>
-   </div>
-   <h3 class="heading settled" data-level="2.1" id="focus-and-scope"><span class="secno">2.1. </span><span class="content">What is the focus and scope of PACT conformance testing?</span><a class="self-link" href="#focus-and-scope"></a></h3>
-   <p>The PACT Conformance testing process focuses on testing the <strong>technical interoperability</strong> of a specific
-implementation (called “host system under test”):</p>
-   <p><strong>A. Technical interoperability testing is scoped by data exchange protocol version:</strong><br> an implementation is tested for conformance against a specific version of the data exchange protocol (such as <a href="https://wbcsd.github.io/data-exchange-protocol/">version 1.0.1</a> or a later version such as <a href="https://wbcsd.github.io/data-exchange-protocol/v2/">version 2</a>) by a 3rd party.</p>
-   <p><strong>B. Technical interoperability testing focuses on the HTTP REST API:</strong><br> for this, the 3rd party makes conforming calls to the HTTP REST API of the host system under test. The 3rd party then
-compares the witnessed behavior with respective specification.</p>
-   <p><strong>C.	Optionally,</strong> technical interoperability testing covers <strong>interoperability testing of a data
-model extension:</strong><br> for this, the parties test technical interoperability against a specific data model extension version. If the data model
-extension provides instructions for doing so, the testing process shall cover them.</p>
-   <h3 class="heading settled" data-level="2.2" id="satisfaction"><span class="secno">2.2. </span><span class="content">When does a host system under test satisfy a PACT conformance test?</span><a class="self-link" href="#satisfaction"></a></h3>
-   <p>A host system under test has satisfied a PACT conformance test <strong>if the 3rd party declares it has performed a PACT
-conformance test with the host system under test, and that the behaviour of the host system under test was conforming to
-the specification</strong> (see e.g. <a href="#checklist">§ 4.2 PACT Conformance Test criteria (Checklist)</a> of this document for a checklist).</p>
-   <h3 class="heading settled" data-level="2.3" id="out-of-scope"><span class="secno">2.3. </span><span class="content">What is <em>not yet</em> in scope of the PACT conformance testing?</span><a class="self-link" href="#out-of-scope"></a></h3>
-   <p>For the first iteration of the Conformance Testing - testing of <u>conformance with the Pathfinder Framework</u>, <u>GHG Protocol</u> (likewise ISO 14044 etc.), <u>sector-specific or product-specific rules</u> <strong>is <em>not</em> in scope</strong>.</p>
-   <p>The first iteration of Conformance Testing will validate solutions conform to the PACT <strong>technical specifications
-only</strong>. Solutions will not be assessed for conformance to Product Carbon Footprint methodologies, such as <u>Pathfinder Framework</u>, <u>GHG Protocol</u> (likewise ISO 14044 etc.), <u>sector-specific or product-specific
-methodologies</u>.</p>
-   <div class="example" id="example-442b932e"><a class="self-link" href="#example-442b932e"></a> If a host system under test implements the HTTP REST API but contains a (critical) bug in its GHG protocol
-implementation, the solution would still meet the PACT conformance testing requirements. </div>
-   <p class="note" role="note"><span class="marker">Note:</span> Future definitions of the conformance testing process will extend their scope.</p>
-   <h2 class="heading settled" data-level="3" id="connectathons"><span class="secno">3. </span><span class="content">Connectathons</span><a class="self-link" href="#connectathons"></a></h2>
-   <p>A Connectathon is an event organized by WBCSD PACT. It is geared towards <strong>simplifying interoperability</strong> and <strong>conformance</strong> testing between implementers and their respective solutions.</p>
-   <p>A Connectathon is open for invited parties and logically consists of</p>
-   <li> Key Date when the Connectathon takes place and collaboration starts 
-   <li> List of companies participating 
-   <li>
-     Dedicated MS Teams channel to collaborate and share feedback, test progress, and outcome 
-    <h3 class="heading settled" data-level="3.1" id="connectathon-process"><span class="secno">3.1. </span><span class="content">Connectathon Process</span><a class="self-link" href="#connectathon-process"></a></h3>
-    <p>Organizations can <a href="#submit-solution-process">Onboard their Solution to PACT Online Catalog</a> before or after the Connectathon.</p>
-    <p>Please refer the process below -</p>
-    <figure> <img alt="TODO" height="906" src="images/connectathon-process.png" width="936"> </figure>
-    <span class="marker">Note:</span> <strong><em>Connectathons will be conducted on a Monthly basis</em></strong>
-    <p></p>
-    <h2 class="heading settled" data-level="4" id="conducting-conformance-test"><span class="secno">4. </span><span class="content">Conducting a PACT Conformance Testing</span><a class="self-link" href="#conducting-conformance-test"></a></h2>
-    <p>Conformance Testing commences once Organizations identify their Testing partner(s) before or during Connectathons.</p>
-    <h3 class="heading settled" data-level="4.1" id="conformance-test-process"><span class="secno">4.1. </span><span class="content">Process</span><a class="self-link" href="#conformance-test-process"></a></h3>
-    <p>The key stages of a PACT Conformance Test performed by the parties are depicted below:</p>
-    <p><img alt="TODO" height="1150" src="images/conformance-process.png" width="2539"></p>
-   <li> Organizations will <strong>Initiate</strong> the Conformance Testing process by aligning on Timeline, Process,
-and Communication mechanism (dedicated Private MS Teams Channel). 
-   <li> Conformance <strong>Test</strong> begins based on the Test Data / Environment setup initially. It is assumed, the
-parties perform the testing in accordance with the [[PACT Criteria Checklist]TODO 4.2] for the testing. The parties are
-free to use Teams or different channels during the Connectathon or after. Additionally, the parties are free to use the
-PACT-sponsored SharePoint to share data among each other. 
-   <li> Organizations will continuously / iteratively run test scenarios and <strong>evaluate</strong> the PCF Data
-exchange as per the PACT Conformance testing criteria Checklist. Issues / queries can be posted and resolved via the MS
-Teams Channel. After successful conclusion of a conformance test, Organizations will <strong>Sign Off</strong> the
-Solutions (Pass/Fail) 
-   <li> Organizations are encouraged to <strong>retest</strong> their solutions during the next scheduled <strong>Connectathon</strong>, especially in case when issues have been resolved or support for new versions (related to
-the data exchange protocol or 1 or more data model extensions) was added to a previously-tested implementation 
-   <li> Organizations are encouraged to onboard their solution to the PACT Catalog and to upload conformance results
-there as well (see <a href="https://github.com/sine-fdn/pact-catalog/blob/main/CONTRIB_SOLUTION.md#6-create-a-new-json-file-in-the-conformance-tests-directory">here</a> for details) 
-   <li>
-     The Conformance Testing process is <strong>periodically reviewed, updated, and scope expanded</strong> (see
-[[section 2.3] TO DO]) to reflect changes in the organization’s standards and requirements, as well as feedback received
-from members of the network. 
-    <h3 class="heading settled" data-level="4.2" id="checklist"><span class="secno">4.2. </span><span class="content">PACT Conformance Test criteria (Checklist)</span><a class="self-link" href="#checklist"></a></h3>
-    <p>Recommendation from WBCSD to be used as a reference for the Bilateral Conformance Testing criteria for Technical
-Interoperability. A Solution is deemed PACT Conformant if it meets all the criteria’s as defined in
-[[this checklist]TO DO].</p>
-    <h2 class="heading settled" data-level="5" id="onboarding"><span class="secno">5. </span><span class="content">Onboarding Solutions to the PACT Online Catalog</span><a class="self-link" href="#onboarding"></a></h2>
-    <p>Companies can onboard their Solutions to PACT Online Catalog at any time – <strong>regardless if their Solutions were
-tested for Conformance</strong> or <strong>not tested</strong> yet. Depending on whether the Solution was Conformance
-tested or not, the Status of the Solution in the PACT Online Catalog will reflect accordingly once they are onboarded to
-it. Please Refer below -</p>
-    <p><img alt="TODO" height="1000" src="images/onboarding.png" width="862"></p>
-    <h3 class="heading settled" data-level="5.1" id="submit-solution-process"><span class="secno">5.1. </span><span class="content">Process to Submit a Solution in Online Catalog</span><a class="self-link" href="#submit-solution-process"></a></h3>
-    <ol>
-     <li> Navigate to the “<a href="https://pact-catalog.sine.dev/contribute">Contribute</a>” section 
-     <li>
-       Click the first “Go to GitHub”  button under the “Developing Solutions?” option 
-      <ul>
-       <li> You will be taken directly to the <a href="https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_SOLUTION.md">WBCSD PACT Online Catalog repo</a>. 
-       <li> Follow the process as described in the CONTRIB_SOLUTION.md to Submit a Pull Request (PR) for your Solution 
-      </ul>
-     <li> Once the Pull Request is submitted (above step), the Pull Request will be reviewed for completeness. If all
-  details are filled out correctly, the PR will be merged and the Conforming Solution will appear under the “<a href="https://pact-catalog.sine.dev/solutions">Solutions</a>"
-  page on the Online Catalog 
-     <li> After clicking a particular “Conformant Solution”, you will be taken to its Details page (<a href="https://pact-catalog.sine.dev/solutions/example-solution/0.0.0">example</a>) 
-     <li> You can review the details of all your Conformance Tests under the “Conformance” tab (<a href="https://pact-catalog.sine.dev/solutions/example-solution/0.0.0?activeTab=conformance">example</a>) 
-    </ol>
-    <h2 class="heading settled" data-level="6" id="faqs"><span class="secno">6. </span><span class="content">FAQs</span><a class="self-link" href="#faqs"></a></h2>
-    <dl>
-     <dt data-md>Do participants need to identify a partner BEFORE the Connectathon kickoff?
-     <dd data-md>
-      <p>PACT Team will conduct a Kickoff before every Connectathon which will cover – Overview of the Conformance Testing
-Process, Introduction of the participants, Logistics (MS Teams channel, Communication / collaboration mechanisms
-between testing partners), Demo of the Online Catalog and How to add Conformance Test Results and Solution to the
-Catalog, and any Q&amp;A. Participants can decide during this kickoff or post Kickoff who they want to collaborate with
-for the Conformance Testing</p>
-     <dt data-md>What are the pre-requisites for participating in the Connectathons?
-     <dd data-md>
-      <p>The main pre-requisites for participating in the Connectathons is that you have a Solution (fully ready or partially
-ready) that follows Technical Specification V1 or V2</p>
-     <dt data-md>Is there a limit on the Testing Partners an Organizations can conduct Conformance Testing with during the
-Connectathons?
-     <dd data-md>
-      <p>Organizations are welcomed and encouraged to pair-up with multiple Partners who are available for Testing. <u>Note</u>:
-Minimum <strong>2</strong> independent Organizations need to conform the Solution for the Solution to be deemed PACT
-Conformant</p>
-     <dt data-md>How many times can we offer up our solution to be tested in Connectathons?/How many Connectathons can we participate
-in?
-     <dd data-md>
-      <p>Organizations are welcomed and encouraged to participate in multiple Connectathons and conduct multiple Conformance
-tests within a Connectathon.</p>
-     <dt data-md>Is there a component of "learning" as part of Connectathons?
-     <dd data-md>
-      <p>Once the conformance Testing is concluded, Organizations are recommended to share the Test Results and the <strong>observations</strong>. (In the format they choose to). These observations can be leveraged as learning
-opportunities. PACT Team will also plan on organizing <strong>Retrospective</strong> sessions after a Connectathon
-is concluded, so that Organizations who participate in the Connectathons and conformance testing can share their
-experience and learning.</p>
-     <dt data-md>Our Solution passed the Conformance Tests during a Connectathon.  Can we still participate in any upcoming
-Connectathon?
-     <dd data-md>
-      <p>Yes you can participate in any / every Connectathon based on your availability and readiness.</p>
-     <dt data-md>Can Organizations participating in the Connectathon collaborate over their preferred Communication Platform or
-communication via  WBCSD MS Teams is a mandatory requirement?
-     <dd data-md>
-      <p>Organizations are welcome to use their preferred Communication platform based on the alignment with their Testing
-Partner(s).</p>
-     <dt data-md>When should we upload the Conformance Results to the online Catalog?
-     <dd data-md>
-      <p>Organizations are encouraged to upload the Conformance Test results to Online Catalog if the Solution passes the
-Conformance test. If the Solution fails the Conformance Test, it is up to the Organizations to upload that Result
-to the Online Catalog and it is not mandatory.</p>
-    </dl>
-    <h2 class="heading settled" data-level="7" id="resources"><span class="secno">7. </span><span class="content">Resources</span><a class="self-link" href="#resources"></a></h2>
-   <li> <a href="https://wbcsd.github.io/data-exchange-protocol/">Pathfinder Technical Specifications Version 1.0.1</a> 
-   <li> <a href="https://wbcsd.github.io/data-exchange-protocol/v2/">Pathfinder Technical Specifications Version 2.0.1</a> 
-   <li> <a href="https://pact-catalog.sine.dev">PACT Online Catalog</a> 
-   <li> <a href="https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_TEST.md">Instructions on how to publish Conformance Test Results to the PACT Online Catalog</a> 
+   <h2 class="heading settled" data-level="1" id="background"><span class="secno">1. </span><span class="content">Background: Definition of Conformance</span><a class="self-link" href="#background"></a></h2>
+   <p class="note" role="note"><span class="marker">Note:</span> The following sections are copied from the tech specs. See the respective technical specification for the latest
+definition.</p>
+   <p>A conforming <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#host-system">host system</a> is any algorithm realized as
+software and/or hardware that complies with the relevant normative statements in <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#api">§6 HTTP REST API</a>.</p>
+   <p>A conforming requesting <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#data-recipient">data recipient</a> is any
+algorithm realized as software and/or hardware that complies with the relevant normative statements in <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#api">§6 HTTP REST API</a>.</p>
+   <p>This checklist is a recommendation from WBCSD to be used as a reference for the Bilateral Conformance Testing.</p>
+   <h2 class="heading settled" data-level="2" id="checklist-v1-v2"><span class="secno">2. </span><span class="content">Checklist of/for Functionality for V1.0.1 &amp; V2.0.1</span><a class="self-link" href="#checklist-v1-v2"></a></h2>
+   <h3 class="heading settled" data-level="2.1" id="v1-v2-mandatory"><span class="secno">2.1. </span><span class="content">Mandatory Functionality</span><a class="self-link" href="#v1-v2-mandatory"></a></h3>
+   <input type="checkbox">
+    Host system has implemented the following <strong>Http actions</strong> as specified and
+standardized in Pathfinder Technical Specification V2: 
+   <dl>
+    <dd data-md>
+     <input type="checkbox">
+      <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#action-authenticate">Action Authenticate</a> 
+    <dd data-md>
+     <input type="checkbox">
+      <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints">Action ListFootprints</a> 
+    <dd data-md>
+     <input type="checkbox">
+      <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#action-getfootprint">Action GetFootprint</a> 
+     <input type="checkbox">
+      Host system offers its actions under <strong>https</strong> method only<br> 
+     <input type="checkbox">
+      Host System performs the <strong>Authentication Flow</strong> for PCF Data exchange as specified
+in the Pathfinder Technical Specification V2  for all Actions<br> 
+     <input type="checkbox">
+      Host System endpoint follows the <strong>Request/ Response syntax</strong> for all mandatory
+actions (Authenticate, ListFootPrints, GetFootPrints) and optional action (Action Events – <em>not applicable for V
+1.0.1</em>) as specified in the <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination">Pathfinder Technical Specification V2</a><br> 
+     <input type="checkbox">
+      Host System has implemented the <strong>Error Responses</strong> as specified in the Pathfinder
+Technical Specification V2 <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#api-error-responses">Section 6.9</a> 
+   </dl>
+   <h2 class="heading settled" data-level="3" id="additional-v2"><span class="secno">3. </span><span class="content">Additional Checklist of/for Functionality for V2.0.0</span><a class="self-link" href="#additional-v2"></a></h2>
+   <h3 class="heading settled" data-level="3.1" id="v2-mandatory"><span class="secno">3.1. </span><span class="content">Mandatory Functionality</span><a class="self-link" href="#v2-mandatory"></a></h3>
+   <input type="checkbox">
+    Host system has: 
+   <dl>
+    <dd data-md>
+     <input type="checkbox">
+      Implemented <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#action-events">Action Events</a> as specified in Pathfinder Technical Specification V2 and PCF data was exchanged successfully 
+    <dd data-md>
+     <p><strong>Or</strong></p>
+    <dd data-md>
+     <input type="checkbox">
+      If not Implemented <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#action-events">Action Events</a> then it responded to authenticated Action Events calls with an <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#error-response">error response</a> with code <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#notimplemented">NotImplemented</a> 
+     <input type="checkbox">
+      Host system <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints">Action ListFootprints</a> implements mandatory server side <strong>pagination</strong> as specified in <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination">Pathfinder Technical Specification V2</a> 
+     <input type="checkbox">
+      Host System has implemented <strong>Product Footprint Lifecycle events</strong> and rules as
+specified in Pathfinder Technical Specification V2 <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#lifecycle">Section 5</a> 
+   </dl>
+   <h3 class="heading settled" data-level="3.2" id="v2-optional"><span class="secno">3.2. </span><span class="content">Optional (sic!) Functionality</span><a class="self-link" href="#v2-optional"></a></h3>
+   <input type="checkbox">
+    Host System has implemented Asynchronous request and retrieval of Product Footprints and PCF data
+was exchanged successfully based as specified in the Pathfinder Technical Specification V2 <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-events-case-2">Section 6.8.4</a><br> 
+   <input type="checkbox">
+    <u>Host System has implemented V2 <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-events-case-1">Section 6.8.3</a></u><br> 
+   <input type="checkbox">
+    Host System has implemented footprint Filter functionality (refer <a href="https://wbcsd.github.io/data-exchange-protocol/v2/#filter">this</a>)<br> 
+   <input type="checkbox">
+    Host system has implemented the Partial Result feature (see  [details]((https://wbcsd.github.io/data-exchange-protocol/v2/#liststatuscode)
+for the status code 202-case) 
   </main>
 <script>
 (function() {
