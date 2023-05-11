@@ -14,7 +14,6 @@ Boilerplate: omit conformance, omit copyright
 
 
 # Context # {#context}
-Test [link](./checklist.html)
 
 The [Partnership for Carbon Transparency (PACT)](https://www.carbon-transparency.com/) initiative is continuously
 evolving and bringing together organizations and industry initiatives to exchange accurate and primary data-based
@@ -107,8 +106,9 @@ Organizations can [Onboard their Solution to PACT Online Catalog](#submit-soluti
 
 Please refer the process below -
 <figure>
-  <img alt="TODO" src="images/connectathon-process.png" />
-</figure
+  <img alt="Connectathon process diagram" src="./images/connectathon-process.png" width="700"/>
+  <figcaption>Connectathon process diagram</figcaption>
+</figure>
 
 Note: <strong><em>Connectathons will be conducted on a Monthly basis</em></strong>
 
@@ -120,12 +120,15 @@ Conformance Testing commences once Organizations identify their Testing partner(
 
 The key stages of a PACT Conformance Test performed by the parties are depicted below:
 
-<img alt="TODO" src="images/conformance-process.png">
+<figure>
+  <img alt="Conformance process diagram" src="images/conformance-process.png" width="800">
+  <figcaption>Conformance process diagram</figcaption>
+</figure>
 
 <li> Organizations will <strong>Initiate</strong> the Conformance Testing process by aligning on Timeline, Process,
 and Communication mechanism (dedicated Private MS Teams Channel).
 <li> Conformance <strong>Test</strong> begins based on the Test Data / Environment setup initially. It is assumed, the
-parties perform the testing in accordance with the [[PACT Criteria Checklist]TODO 4.2] for the testing. The parties are
+parties perform the testing in accordance with the [[PACT Criteria Checklist](#checklist)] for the testing. The parties are
 free to use Teams or different channels during the Connectathon or after. Additionally, the parties are free to use the
 PACT-sponsored SharePoint to share data among each other.
 <li> Organizations will continuously / iteratively run test scenarios and <strong>evaluate</strong> the PCF Data
@@ -139,14 +142,14 @@ the data exchange protocol or 1 or more data model extensions) was added to a pr
 there as well (see [here](https://github.com/sine-fdn/pact-catalog/blob/main/CONTRIB_SOLUTION.md#6-create-a-new-json-file-in-the-conformance-tests-directory)
 for details)
 <li> The Conformance Testing process is <strong>periodically reviewed, updated, and scope expanded</strong> (see
-[[section 2.3] TO DO]) to reflect changes in the organization's standards and requirements, as well as feedback received
+[[#out-of-scope]]) to reflect changes in the organization's standards and requirements, as well as feedback received
 from members of the network.
 
 ## PACT Conformance Test criteria (Checklist) ## {#checklist}
 
 Recommendation from WBCSD to be used as a reference for the Bilateral Conformance Testing criteria for Technical
 Interoperability. A Solution is deemed PACT Conformant if it meets all the criteria’s as defined in
-[[this checklist]TO DO].
+[this checklist](./checklist.html).
 
 # Onboarding Solutions to the PACT Online Catalog # {#onboarding}
 
@@ -155,7 +158,10 @@ tested for Conformance</strong> or <strong>not tested</strong> yet. Depending on
 tested or not, the Status of the Solution in the PACT Online Catalog will reflect accordingly once they are onboarded to
 it. Please Refer below -
 
-<img alt="TODO" src="images/onboarding.png"/>
+<figure>
+  <img alt="Onboarding process diagram" src="images/onboarding.png" width="600"/>
+  <figcaption>Onboarding process diagram</figcaption>
+</figure>
 
 ## Process to Submit a Solution in Online Catalog ## {#submit-solution-process}
 

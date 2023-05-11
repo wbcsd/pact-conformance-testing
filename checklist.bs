@@ -27,6 +27,8 @@ algorithm realized as software and/or hardware that complies with the relevant n
 
 This checklist is a recommendation from WBCSD to be used as a reference for the Bilateral Conformance Testing.
 
+Click [here](./index.html) to go back to the Conformance Testing guidelines.
+
 # Checklist of/for Functionality for V1.0.1 & V2.0.1 # {#checklist-v1-v2}
 
 ## Mandatory Functionality ## {#v1-v2-mandatory}
