@@ -37,7 +37,7 @@ Click [here](./index.html) to go back to the Conformance Testing guidelines.
 standardized in Pathfinder Technical Specification V2:
 :: <input type=checkbox> [Action Authenticate](https://wbcsd.github.io/data-exchange-protocol/v2/#action-authenticate)
 :: <input type=checkbox> [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
-:: <input type=checkbox> [Action GetFootprint](https://wbcsd.github.io/data-exchange-protocol/v2/#action-getfootprint)
+:: <input type=checkbox> [Action GetFootprint](https://wbcsd.github.io/data-exchange-protocol/v2/#action-getfootprint)</br>
     <input type=checkbox> Host system offers its actions under <strong>https</strong> method only</br>
     <input type=checkbox> Host System performs the <strong>Authentication Flow</strong> for PCF Data exchange as specified
     in the Pathfinder Technical Specification V2  for all Actions</br>
