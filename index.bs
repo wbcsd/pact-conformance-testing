@@ -152,9 +152,12 @@ Interoperability. A Solution is deemed PACT Conformant if it meets all the crite
 [this checklist](./checklist.html).
     
  ## PACT Conformance Test Cases Template (TestCases) ## {#testcases}
- Access the sample PACT Conformance Test Cases Template [here](https://github.com/wbcsd/pact-conformance-testing/blob/main/PACT%20Conformance%20Testing%20-%20Test%20Cases.md). Please Note - This is a template created with the intention to guide you on what possible test cases you need to consider, 
+ Access the sample PACT Conformance Test Cases Template [here](https://github.com/wbcsd/pact-conformance-testing/blob/main/PACT%20Conformance%20Testing%20-%20Test%20Cases.md).
+ Please Note - This is a template created with the intention to guide you on what possible test cases you need to consider, 
  but we also encourage you to add any other test cases you feel are necessary for your test coverage.
  
+ ## PACT Conformance Test - Sample Payloads
+ Access the sample payloads for the Pathfinder API endpoints [here](https://documenter.getpostman.com/view/27574443/2s93mASyuH).
 
 # Onboarding Solutions to the PACT Online Catalog # {#onboarding}
 
