@@ -1,0 +1,382 @@
+<pre class='metadata'>
+Title: PACT Conformance Testing Sample Test Cases
+Shortname: PACT-Conformance-Testing-Sample-Test-Cases
+Level: 2
+Status: LD
+URL: https://wbcsd.github.io/pact-conformance-testing/PACT-Conformance-Testing-Sample-Test-Cases
+Editor:
+Mailing List: public-dev@pathfinder.sine.dev
+Repository: wbcsd/pact-conformance-testing/
+Abstract: Checklist for conformance testing within the PACT ecosystem.
+Markup Shorthands: markdown yes
+Boilerplate: omit conformance, omit copyright
+</pre>
+ <table>
+    <tr>
+        <td>Test Scenario / Group</td>
+        <td>Test Case / Step</td>
+        <td>Not Applicable (NA) / Optional (O) / Mandatory (M) for V 1.0.1</td>
+        <td>Not Applicable (NA) / Optional (O) / Mandatory (M) for V 2.0.0</td>
+        <td>Expected Outcome</td>
+        <td>Actual Outcome</td>
+        <td>&quot;Status </td>
+    </tr>
+    <tr>
+        <td>(Passed / Failed)&quot;</td>
+        <td>Notes</td>
+    </tr>
+    <tr>
+        <td>Authenticate Action</td>
+        <td>Receive access token with correct credentials using HTTPS endpoint</td>
+        <td>M</td>
+        <td>M</td>
+        <td>Able to get a response with a valid Bearer Token</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Receive access token without correct credentials using without HTTP endpoint</td>
+        <td>M</td>
+        <td>M</td>
+        <td>The API call should error out and no response back</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Try receiving access token with incorrect credentials</td>
+        <td>M</td>
+        <td>M</td>
+        <td>Receive an error response with HTTP status code 403 (Unauthorized)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ListFootprints Action</td>
+        <td>Request ListFootprints endpoint with an expired access token</td>
+        <td>M</td>
+        <td>M</td>
+        <td>Receive an error response with HTTP status code 403 (Unauthorized)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint with an invalid access token</td>
+        <td>M</td>
+        <td>M</td>
+        <td>Receive an error response with HTTP status code 403 (Unauthorized)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint with a valid access token using HTTPS endpoint</td>
+        <td>M</td>
+        <td>M</td>
+        <td>Response with ProductFootprints is received based on the access management token</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint with a valid access token using HTTP endpoint</td>
+        <td>M</td>
+        <td>M</td>
+        <td>The API call should error out and no response back</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint without specifying Limit parameter</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>Response with all the records is created and received. No pagination link is sent in the response. </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint with specifying Limit request parameter to n (n being the number of records to be returned)</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>The number of returned ProductFootprints is less than or equal to n. A  pagination link is sent in the response. The pagination link is valid for at least 180 seconds after creation</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint with the pagination link received in an earlier response within 180 seconds after making the previous request</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>Response with the corresponding records as per the pagination link in the request is received</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Receive a response with additonal PCF records available </td>
+        <td>NA</td>
+        <td>M</td>
+        <td>Response contains a Link header with rel=&quot;next&quot; and target IRI conforming to RFC8288</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Receive a response with no additonal PCF records available </td>
+        <td>NA</td>
+        <td>M</td>
+        <td>The Link header is not present in the response</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request data multiple times via the same pagination link received in earlier request to the endpoint</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>Same set of ProductFootprints is returned upon each successful authentication call to the pagination link</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request data via a previous pagination link received in an earlier request to the endpoint after receiving a second pagination link</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>&quot;Outcome 1: If the Data Owner host system maintains the previous link data, then</td>
+    </tr>
+    <tr>
+        <td>The previous pagination link still  works and returns the same set of ProductFootprints as requested via that link earlier</td>
+    </tr>
+    <tr>
+        <td>Outcome 2: If the Data Owner host system does not maintain the previous link data, then -</td>
+    </tr>
+    <tr>
+        <td>The previous pagination link no longer works. The previous pagination link returns an error or no longer returns the same set of ProductFootprints&quot;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request data for additional ProductFootprints ready to be retrieved</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>Response is received with the Link header contains rel=&quot;next&quot; and the target IRI is absolute with the host value equal to the host request header from the original ListFootprints HTTP request</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request data by specifying a filter parameter for one of these attributes (created, updated, productCategoryCpc, geographyCountry, referencePeriodStart, referencePeriodEnd)</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>&quot;Response is received for only specific records meeting  the filter cirteria. e.g. Get footprints with CPC code &quot;&quot;3342&quot;&quot;: if specified Get footprints scoped for country:</td>
+    </tr>
+    <tr>
+        <td>$filter=pcf/geographyCountry eq &#39;DE&#39; - then records for &#39;DE&#39; geography are only returned&quot;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request partial data for foot prints with a filter criteria</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>Respons ereceived with the ListStatusCode 202 indicating partial results. indicates the returned list is an incomplete result of the given query.</td>
+        <td></td>
+        <td></td>
+        <td> The host system MAY return this HttpStatusCode if it principally decides that it’s able to obtain the remaining data in the future. This HttpStatusCode MUST NOT be returned if the request parameter Filter is not defined.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request partial data for foot prints without a filter criteria</td>
+        <td>NA</td>
+        <td>M</td>
+        <td>Respons ereceived with the ListStatusCode 200 indicating partial results. indicates the returned list is an incomplete result of the given query.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>GetFootprint Action</td>
+        <td>Request ListFootprints endpoint with an expired access token</td>
+        <td>M</td>
+        <td>M</td>
+        <td>Receive an error response with HTTP status code 403 (Unauthorized)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint with an invalid access token</td>
+        <td>M</td>
+        <td>M</td>
+        <td>Receive an error response with HTTP status code 403 (Unauthorized)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint with an valid access token using HTTPS endpoint</td>
+        <td>M</td>
+        <td>M</td>
+        <td>Productfootprint record for the  requested ProductFootprint id is received based on the access management token</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request ListFootprints endpoint with an valid access token using HTTP endpoint</td>
+        <td>M</td>
+        <td>M</td>
+        <td>The API call should error out and no response back</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Action Events</td>
+        <td>Request Events endpoint with an expired access token</td>
+        <td>NA</td>
+        <td>O</td>
+        <td>Receive an error response with HTTP status code 403 (Unauthorized)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request Events endpoint with an invalid access token</td>
+        <td>NA</td>
+        <td>O</td>
+        <td>Receive an error response with HTTP status code 403 (Unauthorized)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request Events endpoint with an valid access token using HTTP endpoint</td>
+        <td>NA</td>
+        <td>O</td>
+        <td>The API call should error out and no response back</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request Events endpoint with a valid token using HTTPS endpoint</td>
+        <td>NA</td>
+        <td>O</td>
+        <td>&quot;Outcome 1: Response with HTTP 200 OK status code and no body is received if the data owner host system has implemented this endpoint</td>
+    </tr>
+    <tr>
+        <td>Outcome 2: Response with HTTP 400 status code NotImplemented is received if the data owner host system has  not implemented this endpoint&quot;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Asynchronous request ProductFootprint with a criteria (e.g. a set of productIds, companyIds)</td>
+        <td>NA</td>
+        <td>O</td>
+        <td>&quot;Outcome 1: Receive the ProductFootprints within a PF Response Event which includes the available PF if the data is ready</td>
+    </tr>
+    <tr>
+        <td>Outcome 2: Receive the PF Response Error Event if the data is not ready&quot;</td>
+        <td></td>
+        <td></td>
+        <td>Note: the URN of the target product and company must be notified to target solution.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Product Lifecycle events </td>
+        <td>Request a PCF with minor version updates for the one or many of the applicable CarbonFootprint properties</td>
+        <td>NA</td>
+        <td>O</td>
+        <td>Receive a response with new Product Footprints pertinent to the minor version updates</td>
+        <td></td>
+        <td></td>
+        <td>&quot;A minor change is limited to the following CarbonFootprint properties:</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td>pCfExcludingBiogenic, pCfIncludingBiogenic, fossilCarbonContent, biogenicCarbonContent, dLucGhgEmissions, landManagementGhgEmissions, otherBiogenicGhgEmissions, iLucGhgEmissions, biogenicCarbonWithdrawal, aircraftGhgEmissions, packagingEmissionsIncluded, packagingGhgEmissions, fossilGhgEmissions, biogenicCarbonContent, primaryDataShare, secondaryEmissionFactorSources, dqi, primaryDataShare &quot;</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Request a PCF with major version updates for the one or many of the applicable CarbonFootprint properties</td>
+        <td>NA</td>
+        <td>O</td>
+        <td>Receive a response with new Product Footprints pertinent to the major version updates</td>
+        <td></td>
+        <td></td>
+        <td>A major change refers to a set of 1 or more changes with 1 or more changes NOT conforming to the minor change definition.</td>
+    </tr>
+</table>
