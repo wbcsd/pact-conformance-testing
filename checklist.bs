@@ -4,8 +4,9 @@ Shortname: pact-conf-test-checklist
 Level: 2
 Status: LD
 URL: https://wbcsd.github.io/pact-conformance-testing/checklist
-Editor:
 Mailing List: public-dev@pathfinder.sine.dev
+Editor: Prasad Tilloo (SINE Foundation), https://sine.foundation, prasad@sine.foundation
+Editor: Raimundo Henriques (SINE Foundation), https://sine.foundation, raimundo@sine.foundation
 Repository: wbcsd/pact-conformance-testing/
 Abstract: Checklist for conformance testing within the PACT ecosystem.
 Markup Shorthands: markdown yes
