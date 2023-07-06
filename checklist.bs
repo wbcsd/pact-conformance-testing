@@ -30,7 +30,7 @@ This checklist is a recommendation from WBCSD to be used as a reference for the 
 
 Click [here](./index.html) to go back to the Conformance Testing guidelines.
 
-# Checklist of/for Functionality for V1.0.1 & V2.0.1 # {#checklist-v1-v2}
+# Checklist of/for Functionality for V1 & V2 # {#checklist-v1-v2}
 
 ## Mandatory Functionality ## {#v1-v2-mandatory}
 
@@ -44,11 +44,11 @@ standardized in Pathfinder Technical Specification V2:
     in the Pathfinder Technical Specification V2  for all Actions</br>
     <input type=checkbox> Host System endpoint follows the <strong>Request/ Response syntax</strong> for all mandatory
     actions (Authenticate, ListFootPrints, GetFootPrints) and optional action (Action Events – <em>not applicable for V
-    1.0.1</em>) as specified in the [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
+    1</em>) as specified in the [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
     <input type=checkbox> Host System has implemented the <strong>Error Responses</strong> as specified in the Pathfinder
     Technical Specification V2 [Section 6.9](https://wbcsd.github.io/data-exchange-protocol/v2/#api-error-responses)
 
-# Additional Checklist of/for Functionality for V2.0.0 # {#additional-v2}
+# Additional Checklist of/for Functionality for V2 # {#additional-v2}
 
 ## Mandatory Functionality ## {#v2-mandatory}
 
