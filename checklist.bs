@@ -59,7 +59,8 @@ standardized in Pathfinder Technical Specification V2:
 :: <input type=checkbox> If not Implemented [Action Events](https://wbcsd.github.io/data-exchange-protocol/v2/#action-events)
     then it responded to authenticated Action Events calls with an [error response](https://wbcsd.github.io/data-exchange-protocol/v2/#error-response)
     with code [NotImplemented](https://wbcsd.github.io/data-exchange-protocol/v2/#notimplemented)</br>
-    <input type=checkbox> Host system [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
+
+<input type=checkbox> Host system [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
     implements mandatory server side <strong>pagination</strong> as specified in [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
     <input type=checkbox> Host System has implemented <strong>Product Footprint Lifecycle events</strong> and rules as
     specified in Pathfinder Technical Specification V2 [Section 5](https://wbcsd.github.io/data-exchange-protocol/v2/#lifecycle)
