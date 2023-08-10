@@ -206,14 +206,13 @@ it. Please Refer below -
     Catalog, and any Q&A. Participants can decide during this kickoff or post Kickoff who they want to collaborate with
     for the Conformance Testing
 
-: What are the pre-requisites for participating in the Connectathons? :: The main pre-requisites for
-    participating in the Connectathons is that you have a Solution (fully ready or partially ready)
-    that follows Technical Specification V1 or V2. In the cases when your organization doesn't have
-    a Solution yet Or has a Solution but it offers only Data Recipient capabilities (i.e. your
-    Solution doesn't provide PCF data as Data Owner per PACT Technical Specifications) then your
-    Organization can still participate in the Connectathon and Conformance Testing process, but in
-    these cases your Solution will not be onboarded to the Catalog, but your Organization will be
-    onboarded as "Collaborator" in the PACT Catalog. Please refer to "[this
+: What are the pre-requisites for participating in the Connectathons? 
+:: The main pre-requisites for participating in the Connectathons is that you have a Solution (fully ready or partially ready)
+    that follows Technical Specification V1 or V2. 
+    
+    In the cases when your organization doesn't have a Solution yet Or has a Solution but it offers only Data Recipient capabilities (i.e. your
+    Solution doesn't provide PCF data as Data Owner per PACT Technical Specifications) then your Organization can still participate in the Connectathon and Conformance Testing process, but in
+    these cases your Solution will not be onboarded to the Catalog, but your Organization will be onboarded as "Collaborator" in the PACT Catalog. Please refer to "[this
     documentation](https://wbcsd.sharepoint.com/:w:/s/ClimateEnergy/ERLYPpzyLztMpiUktDXk_ZcB_syU_XSN25gL56ZW-QdZLQ?e=vw3tea)"
     for more detailed overview of the process in such scenarios.
 
