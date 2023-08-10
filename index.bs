@@ -165,7 +165,7 @@ Access the sample PACT Conformance Test Cases Template [here](https://github.com
 Please Note - This is a template created with the intention to guide you on what possible test cases you need to consider,
 but we also encourage you to add any other test cases you feel are necessary for your test coverage.
 
-## PACT Conformance Test - Sample Payloads
+## PACT Conformance Test - Sample Payloads {#payloads}
 Access the sample payloads for the Pathfinder API demo endpoints [here](https://documenter.getpostman.com/view/27574443/2s93mASyuH).
 
 
@@ -177,7 +177,7 @@ tested or not, the Status of the Solution in the PACT Online Catalog will reflec
 it. Please Refer below -
 
 <figure>
-  <img alt="Onboarding process diagram" src="images/onboarding.png" width="600"/>
+  <img alt="Onboarding process diagram" src="images/onboarding.png" width="600">
   <figcaption>Onboarding process diagram</figcaption>
 </figure>
 
