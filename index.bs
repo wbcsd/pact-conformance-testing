@@ -107,7 +107,7 @@ Organizations can [Onboard their Solution to PACT Online Catalog](#submit-soluti
 
 Please refer the process below -
 <figure>
-  <img alt="Connectathon process diagram" src="./images/connectathon-process.png" width="700"/>
+  <img alt="Connectathon process diagram" src="./images/connectathon-process.png" width="700">
   <figcaption>Connectathon process diagram</figcaption>
 </figure>
 
@@ -148,10 +148,10 @@ from members of the network.
 <li> <strong>Process when the testing Partner doesn't have a Solution yet or has a "Data Recipient Only" solution</strong>
 There are situations where an Organization chooses to implement "Data Recipient only" capability in the immediate term due to business model or product constraints. PACT still encourages these Organizations to participate in the PACT Conformance Testing process and to be onboarded to the PACT Catalog.
 
-For both these scenarios, the concerned Organization can still participate in the Connectathon and Conformance Testing and test another Organization’s solution by participating in the data exchange as recipient and validate the conformance of the other solution based on the PACT standards / specification.  
-The other Organization can add the Conformance Test Result from this testing to the Catalog by following the Scenario 2 as depicted in [these instructions](https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_TEST.md#2-fill-in-the-conformance-test-details) 
+For both these scenarios, the concerned Organization can still participate in the Connectathon and Conformance Testing and test another Organization’s solution by participating in the data exchange as recipient and validate the conformance of the other solution based on the PACT standards / specification.
+The other Organization can add the Conformance Test Result from this testing to the Catalog by following the Scenario 2 as depicted in [these instructions](https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_TEST.md#2-fill-in-the-conformance-test-details)
 
-<u>Note:</u>For both the above scenarios – The concerned Organization will still need to submit a Pull request in the PACT Catalog repo to add their Organization as a ”User”. Please follow [these instructions](https://github.com/wbcsd/pact-catalog/blob/main/README.md#3-create-a-new-user-in-the-users-directory) to do so.  
+<u>Note:</u>For both the above scenarios – The concerned Organization will still need to submit a Pull request in the PACT Catalog repo to add their Organization as a ”User”. Please follow [these instructions](https://github.com/wbcsd/pact-catalog/blob/main/README.md#3-create-a-new-user-in-the-users-directory) to do so.
 
 The concerned Organization as per the above scenarios will appear in the Catalog under the “Collaborators” page, even though their Solution may not be in the PACT Catalog
 
@@ -159,7 +159,7 @@ The concerned Organization as per the above scenarios will appear in the Catalog
 Recommendation from WBCSD to be used as a reference for the Bilateral Conformance Testing criteria for Technical
 Interoperability. A Solution is deemed PACT Conformant if it meets all the criteria’s as defined in
 [this checklist](./checklist.html).
-    
+
 ## PACT Conformance Test Cases Template (TestCases) ## {#testcases}
 Access the sample PACT Conformance Test Cases Template [here](https://github.com/wbcsd/pact-conformance-testing/blob/main/PACT%20Conformance%20Testing%20-%20Test%20Cases.md).
 Please Note - This is a template created with the intention to guide you on what possible test cases you need to consider,
@@ -193,8 +193,8 @@ it. Please Refer below -
   <li> Once the Pull Request is submitted (above step), the Pull Request will be reviewed for completeness. If all
   details are filled out correctly, the PR will be merged and the Conforming Solution will appear under the “[Solutions](https://catalog.carbon-transparency.com/solutions)"
   page on the Online Catalog
-  <li> After clicking a particular “Conformant Solution”, you will be taken to its Details page 
-  <li> You can review the details of all your Conformance Tests under the “Conformance” tab 
+  <li> After clicking a particular “Conformant Solution”, you will be taken to its Details page
+  <li> You can review the details of all your Conformance Tests under the “Conformance” tab
 </ol>
 
 # FAQs # {#faqs}
@@ -206,10 +206,16 @@ it. Please Refer below -
     Catalog, and any Q&A. Participants can decide during this kickoff or post Kickoff who they want to collaborate with
     for the Conformance Testing
 
-: What are the pre-requisites for participating in the Connectathons?
-:: The main pre-requisites for participating in the Connectathons is that you have a Solution (fully ready or partially
-    ready) that follows Technical Specification V1 or V2. In the cases when your organization doesn't have a Solution yet Or has a Solution but it offers only Data Recipient capabilities (i.e. your Solution doesn't provide PCF data as Data Owner per PACT Technical Specifications)
-  then your Organization can still participate in the Connectathon and Conformance Testing process, but in these cases your Solution will not be onboarded to the Catalog, but your Organization will be onboarded as "Collaborator" in the PACT Catalog. Please refer to "[this documentation](https://wbcsd.sharepoint.com/:w:/s/ClimateEnergy/ERLYPpzyLztMpiUktDXk_ZcB_syU_XSN25gL56ZW-QdZLQ?e=vw3tea)" for more detailed overview of the process in such scenarios.
+: What are the pre-requisites for participating in the Connectathons? :: The main pre-requisites for
+    participating in the Connectathons is that you have a Solution (fully ready or partially ready)
+    that follows Technical Specification V1 or V2. In the cases when your organization doesn't have
+    a Solution yet Or has a Solution but it offers only Data Recipient capabilities (i.e. your
+    Solution doesn't provide PCF data as Data Owner per PACT Technical Specifications) then your
+    Organization can still participate in the Connectathon and Conformance Testing process, but in
+    these cases your Solution will not be onboarded to the Catalog, but your Organization will be
+    onboarded as "Collaborator" in the PACT Catalog. Please refer to "[this
+    documentation](https://wbcsd.sharepoint.com/:w:/s/ClimateEnergy/ERLYPpzyLztMpiUktDXk_ZcB_syU_XSN25gL56ZW-QdZLQ?e=vw3tea)"
+    for more detailed overview of the process in such scenarios.
 
 : Is there a limit on the Testing Partners an Organizations can conduct Conformance Testing with during the
     Connectathons?
@@ -253,4 +259,3 @@ it. Please Refer below -
   <li> [Instructions on how to add Data Model Extension to the PACT Online Catalog](https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_EXTENSION.md)
   <li> [Sample PACT Conformance Test Cases Template](https://github.com/wbcsd/pact-conformance-testing/blob/main/PACT%20Conformance%20Testing%20-%20Test%20Cases.md)
   <li> [Sample payloads for the Pathfinder API demo endpoints](https://documenter.getpostman.com/view/27574443/2s93mASyuH)
-  
