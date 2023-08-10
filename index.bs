@@ -145,7 +145,7 @@ for details)
 <li> The Conformance Testing process is <strong>periodically reviewed, updated, and scope expanded</strong> (see
 [[#out-of-scope]]) to reflect changes in the organization's standards and requirements, as well as feedback received
 from members of the network.
-<li> <strong>Process when the testing Partner deosn't have a Solution yet or has "Data Recipient Only" solution</strong>
+<li> <strong>Process when the testing Partner doesn't have a Solution yet or has a "Data Recipient Only" solution</strong>
 There are situations where an Organization chooses to only implement "Data Recipient only" capability in the immediate term due to the business model or product constraints, hence PACT still encourages these Organizations to participate in the PACT Conformance Testing process and to be onboarded to the PACT Catalog. Below are the proposed changes to address this-  
 
 
