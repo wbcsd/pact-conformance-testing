@@ -152,7 +152,7 @@ There are situations where an Organization chooses to implement "Data Recipient 
 For both these scenarios, the concerned Organization can still participate in the Connectathon and Conformance Testing and test another Organization’s solution by participating in the data exchange as recipient and validate the conformance of the other solution based on the PACT standards / specification.  
 The other Organization can add the Conformance Test Result from this testing to the Catalog by following the Scenario 2 as depicted in [these instructions](https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_TEST.md#2-fill-in-the-conformance-test-details) 
 
-<u>Note:</u>For both the above scenarios – The concerned Organization will still need to submit a Pull request in the PACT Catalog repo to add their Organization as a” User”. Please follow [these instructions](https://github.com/wbcsd/pact-catalog/blob/main/README.md#3-create-a-new-user-in-the-users-directory) to do so.  
+<u>Note:</u>For both the above scenarios – The concerned Organization will still need to submit a Pull request in the PACT Catalog repo to add their Organization as a ”User”. Please follow [these instructions](https://github.com/wbcsd/pact-catalog/blob/main/README.md#3-create-a-new-user-in-the-users-directory) to do so.  
 
 The concerned Organization as per the above scenarios will appear in the Catalog under the “Collaborators” page, even though their Solution may not be in the PACT Catalog
 
