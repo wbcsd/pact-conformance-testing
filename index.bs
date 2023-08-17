@@ -44,8 +44,9 @@ complexity, and include software-based automation in the future.
 What is a PACT Conformant Solution?
 
 : A PACT conformant solution “A” is defined as a solution which:
+::  Which implements the PACT specified mandatory (and / or optional) endpoints for PCF Data exchange
 ::	Was tested for conformity with a specific version of the technical specifications with 2 or more other solutions
-:: Where the other solutions independently confirm the conformance of solution “A”
+::  Where the other solutions independently confirm the conformance of solution “A”
     </div>
 
 ## What is the focus and scope of PACT conformance testing? ## {#focus-and-scope}
