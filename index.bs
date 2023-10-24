@@ -112,7 +112,7 @@ Please refer the process below -
   <figcaption>Connectathon process diagram</figcaption>
 </figure>
 
-Note: <strong><em>Connectathons will be conducted on a Monthly basis</em></strong>
+Note: <strong><em>Sign up for our next connectathon [here](https://wbcsd.typeform.com/to/QRcdrr2q?typeform-source=www.carbon-transparency.com)</em></strong>
 
 # Conducting a PACT Conformance Testing # {#conducting-conformance-test}
 
