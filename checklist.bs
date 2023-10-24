@@ -60,10 +60,6 @@ standardized in Pathfinder Technical Specification V2:
     then it responded to authenticated Action Events calls with an [error response](https://wbcsd.github.io/data-exchange-protocol/v2/#error-response)
     with code [NotImplemented](https://wbcsd.github.io/data-exchange-protocol/v2/#notimplemented)</br>
 
-<input type=checkbox> Host system [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
-    implements mandatory server side <strong>pagination</strong> as specified in [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
-    <input type=checkbox> Host System has implemented <strong>Product Footprint Lifecycle events</strong> and rules as
-    specified in Pathfinder Technical Specification V2 [Section 5](https://wbcsd.github.io/data-exchange-protocol/v2/#lifecycle)
 
 ## Optional (sic!) Functionality ## {#v2-optional}
 
@@ -73,3 +69,7 @@ was exchanged successfully based as specified in the Pathfinder Technical Specif
 <input type=checkbox> Host System has implemented footprint Filter functionality (refer [this](https://wbcsd.github.io/data-exchange-protocol/v2/#filter))</br>
 <input type=checkbox> Host system has implemented the Partial Result feature (see  [details]((https://wbcsd.github.io/data-exchange-protocol/v2/#liststatuscode)
 for the status code 202-case)
+<input type=checkbox> Host system [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
+    implements mandatory server side <strong>pagination</strong> as specified in [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
+    <input type=checkbox> Host System has implemented <strong>Product Footprint Lifecycle events</strong> and rules as
+    specified in Pathfinder Technical Specification V2 [Section 5](https://wbcsd.github.io/data-exchange-protocol/v2/#lifecycle)
