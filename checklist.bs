@@ -34,7 +34,7 @@ Click [here](./index.html) to go back to the Conformance Testing guidelines.
 
 ## Mandatory Functionality ## {#v1-v2-mandatory}
 
-<input type=checkbox> Host system has implemented the following <strong>Http actions</strong> as specified and
+Host system has implemented the following <strong>Http actions</strong> as specified and
 standardized in Pathfinder Technical Specification V2:
 
 ::
