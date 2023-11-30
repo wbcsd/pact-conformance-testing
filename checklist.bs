@@ -35,26 +35,21 @@ Click [here](./index.html) to go back to the Conformance Testing guidelines.
 ## Mandatory Functionality ## {#v1-v2-mandatory}
 
 Host system has implemented the following <strong>Http actions</strong> as specified and
-standardized in Pathfinder Technical Specification V2:
+standardized in Pathfinder Technical Specification Version V1 or V2 based on the Version you followed for your Solution implementation:
 
 ::
 
-    For V 1.0.x & V 2.0.x
-        :: <input type=checkbox> [Action Authenticate](https://wbcsd.github.io/tr/2023/data-exchange-protocol-20231026/#api-action-auth)
-
-    For V 2.1.x
-        :: <input type=checkbox> [Action Authenticate](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)
-
+   
+:: <input type=checkbox> Action Authenticate -  as per [V 1.0.x & V 2.0.x](https://wbcsd.github.io/tr/2023/data-exchange-protocol-20231026/#api-action-auth) or as per [V 2.1.x](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)
 :: <input type=checkbox> [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
 :: <input type=checkbox> [Action GetFootprint](https://wbcsd.github.io/data-exchange-protocol/v2/#action-getfootprint)</br>
     <input type=checkbox> Host system offers its actions under <strong>https</strong> method only</br>
     <input type=checkbox> Host System performs the <strong>Authentication Flow</strong> for PCF Data exchange as specified
-    in the Pathfinder Technical Specification V2  for all Actions</br>
+    in Pathfinder Technical Specification V1 or V2 based on the Version you followed for your Solution implementation for all Actions</br>
     <input type=checkbox> Host System endpoint follows the <strong>Request/ Response syntax</strong> for all mandatory
     actions (Authenticate, ListFootPrints, GetFootPrints) and optional action (Action Events – <em>not applicable for V
     1</em>) as specified in the [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
-    <input type=checkbox> Host System has implemented the <strong>Error Responses</strong> as specified in the Pathfinder
-    Technical Specification V2 [Section 6.9](https://wbcsd.github.io/data-exchange-protocol/v2/#api-error-responses)
+    <input type=checkbox> Host System has implemented the Error Responses as specified in the "**Error responses**" Section in the Pathfinder Technical Specification V1 or V2 based on the Version you followed for your Solution implementation
 
 # Additional Checklist of/for Functionality for V2 # {#additional-v2}
 
