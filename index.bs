@@ -253,6 +253,7 @@ it. Please Refer below -
 
   <li> [Pathfinder Technical Specifications Version 1.0.1](https://wbcsd.github.io/data-exchange-protocol/)
   <li> [Pathfinder Technical Specifications Version 2.0.1](https://wbcsd.github.io/data-exchange-protocol/v2/)
+  <li> [Pathfinder Technical Specifications Version 2.1.0](https://wbcsd.github.io/data-exchange-protocol/v2/)
   <li> [PACT Online Catalog](https://catalog.carbon-transparency.com/)
   <li> [Instructions on how to add a Solution to the PACT Online Catalog](https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_SOLUTION.md)
   <li> [Instructions on how to add Conformance Test Results to the PACT Online Catalog](https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_TEST.md)
