@@ -208,13 +208,14 @@ Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-li
 
 The test target host system must respond with a 401 Unnauthorized and a JSON body containing the
 error response `TokenExpired`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response).
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
 
 Note: Since the access token is expired, re-authentication should in principle solve the issue. By
 returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
 re-authentication should be attempted.
 
 <div class="example">
+Example response body:
 ```json
 {
   "message": "The specified access token has expired",
@@ -235,13 +236,14 @@ Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-li
 
 The test target host system must respond with a 403 Forbidden and a JSON body containing the
 error response `TokenExpired`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response).
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
 
 Note: Since the access token is invalid, re-authentication cannot solve the issue. By
 returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
 there is no gain in re-authenticating.
 
 <div class="example">
+Example response body:
 ```json
 {
   "message": "Access denied",
@@ -266,16 +268,89 @@ replacing "https://" by "http://".
 
 A ListFootprints GET request must be sent to the generated http endpoint with the the syntax
 specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response) (the
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request) (the
 access token need not be valid).
 
 #### Expected Response #### {#test-listfootprints-http-response}
 
 No response is expected: the request must not be processed.
 
-### Test Case: Get All Footprints ### {#test-listfootprints-success}
+### Test Case: Get All Footprints ### {#test-listfootprints-success}g
+
+#### Request #### {#test-listfootprints-success-request}
+
+A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with a **valid access token** and the syntax specified in [section 6.6.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+
+No `limit` or `filter` paramenters should be defined for this test.
+
+#### Expected Response #### {#test-listfootprints-success-response}
+
+The test target host system must respond with 200 OK and a JSON body containing the list of all
+available PCFs, as specified in [section 6.6.4 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response).
+
+<div class="example">
+Example response body (truncated for brevity):
+```json
+{
+  "data": [
+    {
+      "id": "d9be4477-e351-45b3-acd9-e1da05e6f633",
+      "specVersion": "2.1.0",
+      "version": 1
+      ...
+    }
+  ]
+}
+```
+</div>
 
 ### Test Case: Get Limited List of Footrpints ### {#test-listfootprints-limited}
+
+#### Request #### {#test-listfootprints-limited-request}
+
+A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with a **limit** parameter, a **valid access token** and the syntax specified in [section
+6.6.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+
+<div class="example">
+Example request:
+```http
+GET /2/footprints?limit=2 HTTP/2
+host: api.pathfinder.sine.dev
+authorization: Bearer [BearerToken]
+```
+</div>
+
+#### Expected Response #### {#test-listfootprints-limited-response}
+
+The test target host system must respond with either 200 OK or 202 Accepted and a JSON body
+containing a list of PCFs with a length equal to or smaller than the limit set in the request, as
+specified in [section 6.6.4 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response).
+
+Unless the total number of available PCFs is equal to or smaller than the limit set in the request,
+the test target host system must return a `Link` header as specified in [section 6.6.2 of the
+Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-pagination).
+
+Note: For testing purposes it is recommended to set the limit to a small number (e.g., 2) to ensure
+that pagination is tested.
+
+<div class="example">
+Example response header with `link`:
+```http
+HTTP/1.1 200 OK
+date: Mon, 23 May 2022 19:33:16 GMT
+content-type: application/json
+content-length: 1831
+server: Pathfinder
+link: <https://api.pathfinder.sine.dev/2/footprints?limit=5&offset=5>; rel="next"
+```
+</div>
 
 ### Test Case: Get Next Page of Footprints ### {#test-listfootprints-next}
 
