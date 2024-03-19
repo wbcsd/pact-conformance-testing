@@ -39,7 +39,7 @@ standardized in Pathfinder Technical Specification Version V1 or V2 based on the
 
 ::
 
-   
+
 :: <input type=checkbox> Action Authenticate -  as per [V 1.0.x & V 2.0.x](https://wbcsd.github.io/tr/2023/data-exchange-protocol-20231026/#api-action-auth) or as per [V 2.1.x](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)
 :: <input type=checkbox> [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
 :: <input type=checkbox> [Action GetFootprint](https://wbcsd.github.io/data-exchange-protocol/v2/#action-getfootprint)</br>
@@ -76,3 +76,72 @@ for the status code 202-case)
     implements mandatory server side <strong>pagination</strong> as specified in [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
     <input type=checkbox> Host System has implemented <strong>Product Footprint Lifecycle events</strong> and rules as
     specified in Pathfinder Technical Specification V2 [Section 5](https://wbcsd.github.io/data-exchange-protocol/v2/#lifecycle)
+
+# Test Cases for PACT Conformance Testing # {#test-cases}
+
+## Action Authenticate (Mandatory) ## {#test-authenticate}
+
+Issue: explain that, prior to authentication, the `AuthEndpoint` has to be determined and that this
+can be done through OpenID or defaults to `auth/token`; explain also that in case a custom `AuthEndpoint` is used, the
+endpoint `auth/token` must nevertheless be exposed for backwards compatibility.
+
+### Test Case: Successful Authentication ### {#test-authenticate-success}
+
+Prior to this test, the test target host system must provide the testing party with the necessary
+credentials (i.e., a `client_id` and a `client_secret`).
+
+#### Request #### {#test-authenticate-success-request}
+
+An athentication request must be sent to the `AuthEndpoint` of the test target host system with
+**correct credentials** and the following syntax:
+
+<pre highlight=http>
+POST <a href="https://wbcsd.github.io/tr/data-exchange-protocol/#authendpoint">AuthEndpoint</a> HTTP/1.1
+accept: application/json
+content-type: application/x-www-form-urlencoded
+authorization: Basic <a href="https://wbcsd.github.io/tr/data-exchange-protocol/#basicauth">BasicAuth</a>
+content-length: <a href="https://wbcsd.github.io/tr/data-exchange-protocol/#contentlength">ContentLength</a>
+
+<a href="https://wbcsd.github.io/tr/data-exchange-protocol/#authbody">AuthBody</a>
+</pre>
+
+#### Expected Response #### {#test-authenticate-success-response}
+
+The test target host system must respond with 200 OK and a JSON body containing the access token, as
+specified in [section 6.5.2 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response).
+
+<div class="example">
+```json
+{
+  "access_token": "...",
+  "token_type": "bearer"
+}
+```
+</div>
+
+### Test Case: Unsuccessful Authentication ### {#test-authenticate-unsuccessful}
+
+#### Request #### {#test-authenticate-unsuccessful-request}
+
+An authentication request must be sent to the `AuthEndpoint` of the test target host system with
+**incorrect credentials** and the syntax specified in [section 6.5.1 of the Technical Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request)
+
+#### Expected Response #### {#test-authenticate-unsuccessful-response}
+
+The test target host system must respond with a 400 Bad Request and a JSON body containing the error
+`"invalid_client"`, as specified in [section 6.5.2 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response).
+
+<div class="example">
+```json
+{
+  "error": "invalid_client",
+  "error_description": "Authentication failed"
+}
+```
+</div>
+
+### Attempted Authentication through HTTP (non-HTTPS) ### {#test-authenticate-http}
+
+### Backwards Compatibility: Exposure of `auth/token` (v2.1 and up) ### {#test-authenticate-backwards-compatibility}
