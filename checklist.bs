@@ -142,7 +142,7 @@ Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-au
 ```
 </div>
 
-### Test Case: Attempted Authentication through HTTP (non-HTTPS) ### {#test-authenticate-http}
+### Test Case: Attempt Authentication through HTTP (non-HTTPS) ### {#test-authenticate-http}
 
 According to [section 6.4 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
@@ -190,3 +190,76 @@ available through this endpoint, the test target host system must respond with e
 - a 400 Bad Request and a JSON body containing an error, as specified in
     [section 6.5.2 of the Technical
     Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response).
+
+## Action ListFootprints (Mandatory) ## {#test-listfootprints}
+
+Issue: add general description of the action, as well as an explanation that an access token must
+first be retrieved through authentication.
+
+### Test Case: Attempt ListFootprints with Expired Token ### {#test-listfootprints-expired-token}
+
+#### Request #### {#test-listfootprints-expired-token-request}
+
+A ListFootprints request must be sent to the test target host system with an **expired access
+token** and the syntax specified in [section 6.6.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+
+#### Expected Response #### {#test-listfootprints-expired-token-response}
+
+The test target host system must respond with a 401 Unnauthorized and a JSON body containing the
+error response `TokenExpired`, as specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response).
+
+Note: Since the access token is expired, re-authentication should in principle solve the issue. By
+returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
+re-authentication should be attempted.
+
+<div class="example">
+```json
+{
+  "message": "The specified access token has expired",
+  "code": "TokenExpired"
+}
+```
+</div>
+
+### Test Case: Attempt ListFootPrints with Invalid Token ### {#test-listfootprints-invalid-token}
+
+#### Request #### {#test-listfootprints-invalid-token-request}
+
+A ListFootprints request must be sent to the test target host system with an **invalid access
+token** and the syntax specified in [section 6.6.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+
+#### Expected Response #### {#test-listfootprints-invalid-token-response}
+
+The test target host system must respond with a 403 Forbidden and a JSON body containing the
+error response `TokenExpired`, as specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response).
+
+Note: Since the access token is invalid, re-authentication cannot solve the issue. By
+returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
+there is no gain in re-authenticating.
+
+<div class="example">
+```json
+{
+  "message": "Access denied",
+  "code": "AccessDenied"
+}
+```
+</div>
+
+### Test Case: Attempt ListFootprints through HTTP (non-HTTPS) ### {#test-listfootprints-http}
+
+### Test Case: Get All Footprints ### {#test-listfootprints-success}
+
+### Test Case: Get Limited List of Footrpints ### {#test-listfootprints-limited}
+
+### Test Case: Get Next Page of Footprints ### {#test-listfootprints-next}
+
+### Test Case: Get Page of Footprints Twice ### {#test-listfootprints-twice}
+
+### Test Case: Get Previous Page of Footprints ### {#test-listfootprints-previous}
+
+### Test Case: Get Filtered List of Footprints (Optional) ### {#test-listfootprints-filtered}
