@@ -275,7 +275,7 @@ access token need not be valid).
 
 No response is expected: the request must not be processed.
 
-### Test Case: Get All Footprints ### {#test-listfootprints-success}g
+### Test Case: Get All Footprints ### {#test-listfootprints-success}
 
 #### Request #### {#test-listfootprints-success-request}
 
@@ -354,8 +354,82 @@ link: <https://api.pathfinder.sine.dev/2/footprints?limit=5&offset=5>; rel="next
 
 ### Test Case: Get Next Page of Footprints ### {#test-listfootprints-next}
 
+Note: This test pressuposes the completion of {#test-listfootprints-limited} and uses the `link` returned
+in the header. If the {#test-listfootprints-limited} test fails, this test should be skipped.
+
+Upon requesting a limited list of footprints, the `link` returned in the response header must remain
+valid for 180 seconds. This test must be performed within this time frame.
+
+#### Request #### {#test-listfootprints-next-request}
+
+A ListFootPrints GET request must be sent to the URL specified in the `link` of the response header
+obtained through {#test-listfootprints-limited} with a **valid access token** and the syntax
+specified in [section 6.6.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+
+#### Expected Response #### {#test-listfootprints-next-response}
+
+The test target host system must respond with either 200 OK or 202 Accepted and a JSON body
+containing the next page of PCFs. If this page is the last, the header must not contain a `link` and
+the response must be 200 OK.
+
 ### Test Case: Get Page of Footprints Twice ### {#test-listfootprints-twice}
 
+Note: This test pressuposes the completion of {#test-listfootprints-limited} and
+{#test-listfootprints-next}, since it uses the `link` returned in the former's response header. If the
+{#test-listfootprints-limited} test fails, this test should be skipped.
+
+Upon requesting a limited list of footprints, the `link` returned in the response header must remain
+valid for 180 seconds. This test must be performed within this time frame.
+
+According to [section
+6.6.2 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-pagination), a
+pagination link can be called more than once, in which case the same page must be returned.
+
+#### Request #### {#test-listfootprints-twice-request}
+
+A ListFootPrints GET request must be sent to the URL specified in the `link` of the response header
+obtained through {#test-listfootprints-limited} and already called once through
+{#test-listfootprints-next} with a **valid access token** and the syntax specified in [section 6.6.3
+of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+
+#### Expected Response #### {#test-listfootprints-twice-response}
+
+The test target host system must respond with either 200 OK or 202 Accepted and a JSON body
+containing a limited list of PCFs identical to the one obtained through {#test-listfootprints-next}.
+If this page is the last, the header must not contain a `link` and the response must be 200 OK.
+
 ### Test Case: Get Previous Page of Footprints ### {#test-listfootprints-previous}
+
+Note: This test pressuposes the completion of {#test-listfootprints-limited} and
+{#test-listfootprints-next}. If any of these fail, this test should be skipped.
+
+According to [section 6.6.2 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-pagination), a
+pagination link might no longer work after a new page is requested.
+
+This test presupposes that the test target host system has enough PCFs available to allow for their
+division into three pages.
+
+#### Request #### {#test-listfootprints-previous-request}
+
+After requesting the second page of footprints through {#test-listfootprints-next}, a ListFootprints
+GET request must be sent to the URL specified in the `link` of the response header (assuming there
+is one) with a **valid access token** and the syntax specified in [section 6.6.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request). At that
+point, the third page of PCFs should be returned.
+
+The URL specified in the `link` of the response header of the second page must be stored. A
+ListFootprints GET request must be sent to this URL with a **valid access token** and the syntax
+specified in [section 6.6.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+
+#### Expected Response #### {#test-listfootprints-previous-response}
+
+The test target host system may respond with either
+- 200 OK or 202 Accepted and a JSON body containing the corresponding page of PCFs, or
+- an error http status code and a JSON body containing an error response.
 
 ### Test Case: Get Filtered List of Footprints (Optional) ### {#test-listfootprints-filtered}
