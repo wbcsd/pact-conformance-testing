@@ -142,6 +142,51 @@ Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-au
 ```
 </div>
 
-### Attempted Authentication through HTTP (non-HTTPS) ### {#test-authenticate-http}
+### Test Case: Attempted Authentication through HTTP (non-HTTPS) ### {#test-authenticate-http}
 
-### Backwards Compatibility: Exposure of `auth/token` (v2.1 and up) ### {#test-authenticate-backwards-compatibility}
+According to [section 6.4 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
+must offer its actions under https method only.
+
+Therefore, it is our understanding that host systems must not expose any action-related endpoints
+through http (non-https).
+
+#### Request #### {#test-authenticate-http-request}
+
+An http-only equivalent of the test target host system `AuthEndpoint` must be generated, replacing "https://" by "http://".
+
+An authentication request must be sent to the generated http endpoint with the the syntax specified
+in [section 6.5.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request) (the
+credentials need not be correct).
+
+#### Expected Response #### {#test-authenticate-http-response}
+
+No response is expected: the request must not be processed.
+
+### Test Case: `auth/token` Endpoint for Backwards Compatibility (v2.1 onwards) ### {#test-authenticate-backwards-compatibility}
+
+If a custom `AuthEndpoint` is used, the endpoint `auth/token` must nevertheless be exposed for
+backwards compatibility reasons. However, successful authentication does not need to be available
+through this endpoint and the host system can instead return an error response.
+
+This test case only applies to target host systems using a custom `AuthEndpoint`.
+
+#### Request #### {#test-authenticate-backwards-compatibility-request}
+
+An authentication request must be sent to the `auth/token` endpoint of the test target host system
+with the syntax specified in [section 6.5.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request) (the
+credentials need not be correct).
+
+#### Expected Response #### {#test-authenticate-backwards-compatibility-response}
+
+Depending on whether the credentials are correct and whether successful authentication is made
+available through this endpoint, the test target host system must respond with either
+
+- a 200 OK and a JSON body containing the access token, as specified in [section 6.5.2 of the Technical
+    Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response), or
+
+- a 400 Bad Request and a JSON body containing an error, as specified in
+    [section 6.5.2 of the Technical
+    Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response).
