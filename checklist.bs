@@ -92,7 +92,7 @@ credentials (i.e., a `client_id` and a `client_secret`).
 
 #### Request #### {#test-authenticate-success-request}
 
-An athentication request must be sent to the `AuthEndpoint` of the test target host system with
+An athentication POST request must be sent to the `AuthEndpoint` of the test target host system with
 **correct credentials** and the following syntax:
 
 <pre highlight=http>
@@ -124,7 +124,7 @@ Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-au
 
 #### Request #### {#test-authenticate-unsuccessful-request}
 
-An authentication request must be sent to the `AuthEndpoint` of the test target host system with
+An authentication POST request must be sent to the `AuthEndpoint` of the test target host system with
 **incorrect credentials** and the syntax specified in [section 6.5.1 of the Technical Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request)
 
 #### Expected Response #### {#test-authenticate-unsuccessful-response}
@@ -155,7 +155,7 @@ through http (non-https).
 
 An http-only equivalent of the test target host system `AuthEndpoint` must be generated, replacing "https://" by "http://".
 
-An authentication request must be sent to the generated http endpoint with the the syntax specified
+An authentication POST request must be sent to the generated http endpoint with the the syntax specified
 in [section 6.5.1 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request) (the
 credentials need not be correct).
@@ -174,7 +174,7 @@ This test case only applies to target host systems using a custom `AuthEndpoint`
 
 #### Request #### {#test-authenticate-backwards-compatibility-request}
 
-An authentication request must be sent to the `auth/token` endpoint of the test target host system
+An authentication POST request must be sent to the `auth/token` endpoint of the test target host system
 with the syntax specified in [section 6.5.1 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request) (the
 credentials need not be correct).
@@ -200,8 +200,8 @@ first be retrieved through authentication.
 
 #### Request #### {#test-listfootprints-expired-token-request}
 
-A ListFootprints request must be sent to the test target host system with an **expired access
-token** and the syntax specified in [section 6.6.3 of the Technical
+A ListFootprints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with an **expired access token** and the syntax specified in [section 6.6.3 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
 
 #### Expected Response #### {#test-listfootprints-expired-token-response}
@@ -227,8 +227,8 @@ re-authentication should be attempted.
 
 #### Request #### {#test-listfootprints-invalid-token-request}
 
-A ListFootprints request must be sent to the test target host system with an **invalid access
-token** and the syntax specified in [section 6.6.3 of the Technical
+A ListFootprints GET request must be sent to the `/2/footprints` endpoint of the test target host system
+with an **invalid access token** and the syntax specified in [section 6.6.3 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
 
 #### Expected Response #### {#test-listfootprints-invalid-token-response}
@@ -251,6 +251,27 @@ there is no gain in re-authenticating.
 </div>
 
 ### Test Case: Attempt ListFootprints through HTTP (non-HTTPS) ### {#test-listfootprints-http}
+
+According to [section 6.4 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
+must offer its actions under https method only.
+
+Therefore, it is our understanding that host systems must not expose any action-related endpoints
+through http (non-https).
+
+#### Request #### {#test-listfootprints-http-request}
+
+An http-only equivalent of the test target host system ListFootprints endpoint must be generated,
+replacing "https://" by "http://".
+
+A ListFootprints GET request must be sent to the generated http endpoint with the the syntax
+specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response) (the
+access token need not be valid).
+
+#### Expected Response #### {#test-listfootprints-http-response}
+
+No response is expected: the request must not be processed.
 
 ### Test Case: Get All Footprints ### {#test-listfootprints-success}
 
