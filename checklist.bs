@@ -206,7 +206,7 @@ Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-li
 
 #### Expected Response #### {#test-listfootprints-expired-token-response}
 
-The test target host system must respond with a 401 Unnauthorized and a JSON body containing the
+The test target host system must respond with a 401 Unnauthorized and a JSON body that should contain the
 error response `TokenExpired`, as specified in [section 6.9 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
 
@@ -214,7 +214,7 @@ Note: Since the access token is expired, re-authentication should in principle s
 returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
 re-authentication should be attempted.
 
-<div class="example">
+<div class="example" id="list-footprints-expired">
 Example response body:
 ```json
 {
@@ -235,14 +235,14 @@ Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-li
 #### Expected Response #### {#test-listfootprints-invalid-token-response}
 
 The test target host system must respond with a 403 Forbidden and a JSON body containing the
-error response `TokenExpired`, as specified in [section 6.9 of the Technical
+error response `AccessDenied`, as specified in [section 6.9 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
 
 Note: Since the access token is invalid, re-authentication cannot solve the issue. By
 returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
 there is no gain in re-authenticating.
 
-<div class="example">
+<div class="example" id="list-footprints-invalid">
 Example response body:
 ```json
 {
@@ -470,3 +470,156 @@ Speicifcations](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-li
 test target host system can ignore the filter statement or parts of the filter statement. It can
 also refuse to process a filter statement, but in that case it must respond with 400 Bad Request and
 error code `NotImplemented`.
+
+## Action GetFootprint (Mandatory) ## {#test-getfootprint}
+
+Issue: add general description of the action and how to find PfId's, as well as an explanation that an access token must be
+retrieved before calling it.
+
+### Test Case: Attempt GetFootprint with Expired Token ### {#test-getfootprint-expired-token}
+
+#### Request #### {#test-getfootprint-expired-token-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system with an **expired access token** and the syntax specified in [section 6.7.1 of the
+Technical Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request).
+
+#### Expected Response #### {#test-getfootprint-expired-token-response}
+
+The test target host system must respond with a 401 Unnauthorized and a JSON body that should contain the
+error response `TokenExpired`, as specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+
+Note: Since the access token is expired, re-authentication should in principle solve the issue. By
+returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
+re-authentication should be attempted.
+
+<div class="example" id="get-footprint-expired">
+Example response body:
+```json
+{
+  "message": "The specified access token has expired",
+  "code": "TokenExpired"
+}
+```
+</div>
+
+### Test Case: Attempt GetFootprint with Invalid Token ### {#test-getfootprint-invalid-token}
+
+#### Request #### {#test-getfootprint-invalid-token-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system with an **invalid access token** and the syntax specified in [section 6.7.1 of the
+Technical Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request).
+
+#### Expected Response #### {#test-getfootprint-invalid-token-response}
+
+The test target host system must respond with a 403 Forbidden and a JSON body containing the error
+response `AccessDenied`, as specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+
+Note: Since the access token is invalid, re-authentication cannot solve the issue. By
+returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
+there is no gain in re-authenticating.
+
+<div class="example" id="get-footprint-invalid">
+Example response body:
+```json
+{
+  "message": "Access denied",
+  "code": "AccessDenied"
+}
+```
+</div>
+
+### Test Case: Attempt GetFootprint through HTTP (non-HTTPS) ### {#test-getfootprint-http}
+
+According to [section 6.4 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
+must offer its actions under https method only.
+
+Therefore, it is our understanding that host systems must not expose any action-related endpoints
+through http (non-https).
+
+#### Request #### {#test-getfootprint-http-request}
+
+An http-only equivalent of the test target host system GetFootprint endpoint must be generated,
+replacing "https://" by "http://".
+
+A GetFootprint GET request must be sent to the generated http endpoint with the the syntax specified
+in [section 6.7.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request) (the
+GetPfId need not exist).
+
+#### Expected Response #### {#test-getfootprint-http-response}
+
+No response is expected: the request must not be processed.
+
+### Test Case: Get Footprint ### {#test-getfootprint-success}
+
+This test cases presupposes that the testing party has obtained a valid GetPfId from the test target.
+This can be done by calling the ListFootprints action.
+
+#### Request #### {#test-getfootprint-success-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system with a **valid access token** and the syntax specified in [section 6.7.1 of the
+Technical Specifications]
+(https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request).
+
+The GetPfId must correspond to the `pfId` of one of the PCFs returned by the ListFootprints action.
+
+<div class="example">
+Example request:
+```http
+GET /2/footprints/d9be4477-e351-45b3-acd9-e1da05e6f633 HTTP/2
+host: api.pathfinder.sine.dev
+authorization: Bearer [Bearer]
+```
+</div>
+
+#### Expected Response #### {#test-getfootprint-success-response}
+
+The test target host system must respond with 200 OK and a JSON body containing the PCF with the
+requested `pfId`, as specified in [section 6.7.2 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-response).
+
+<div class="example">
+Example response body (truncated for brevity):
+```json
+{
+  "data": {
+    "id": "d9be4477-e351-45b3-acd9-e1da05e6f633",
+    "specVersion": "2.1.0",
+    "version": 1
+    ...
+  }
+}
+```
+</div>
+
+### Test Case: Attempt GetFootprint with Non-Existent PfId ### {#test-getfootprint-non-existent}
+
+#### Request #### {#test-getfootprint-non-existent-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system, where `{GetPfId}` is a **non-existent** `pfId`, with a **valid access token** and the
+syntax specified in [section 6.7.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request).
+
+<div class="example">
+Example request:
+```http
+GET /2/footprints/foo-bar HTTP/2
+host: api.pathfinder.sine.dev
+authorization: Bearer [Bearer]
+```
+</div>
+
+#### Expected Response #### {#test-getfootprint-non-existent-response}
+
+The test target host system must respond with a 4xx or 5xx error.
+
+It is recommended that the test target host system responds with a 404 Not Found and a JSON body
+containing the error code `NoSuchFootprint`, as specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
