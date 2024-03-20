@@ -574,7 +574,7 @@ Example request:
 ```http
 GET /2/footprints/d9be4477-e351-45b3-acd9-e1da05e6f633 HTTP/2
 host: api.pathfinder.sine.dev
-authorization: Bearer [Bearer]
+authorization: Bearer [BearerToken]
 ```
 </div>
 
@@ -612,7 +612,7 @@ Example request:
 ```http
 GET /2/footprints/foo-bar HTTP/2
 host: api.pathfinder.sine.dev
-authorization: Bearer [Bearer]
+authorization: Bearer [BearerToken]
 ```
 </div>
 
@@ -622,4 +622,188 @@ The test target host system must respond with a 4xx or 5xx error.
 
 It is recommended that the test target host system responds with a 404 Not Found and a JSON body
 containing the error code `NoSuchFootprint`, as specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+
+## Action Events (Mandatory for v2.2 and onwards) ## {#test-events}
+
+Issue: add general description of the action, as well as an explanation that an access token must be
+retrieved before calling it.
+
+### Test Case: Attempt Action Events with Expired Token ### {#test-events-expired-token}
+
+#### Request #### {#test-events-expired-token-request}
+
+An Events POST request must be sent to the `/2/events` endpoint of the test target host
+system with an **expired access token** and the syntax specified in [section 6.8.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-request) (the
+EnventBody is irrelevant).
+
+#### Expected Response #### {#test-events-expired-token-response}
+
+The test target host system must respond with a 401 Unnauthorized and a JSON body that should
+contain the error response `TokenExpired`, as specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+
+Note: Since the access token is expired, re-authentication should in principle solve the issue. By
+returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
+re-authentication should be attempted.
+
+<div class="example" id="events-expired">
+Example response body:
+```json
+{
+  "message": "The specified access token has expired",
+  "code": "TokenExpired"
+}
+```
+</div>
+
+### Test Case: Attempt Action Events with Invalid Token ### {#test-events-invalid-token}
+
+#### Request #### {#test-events-invalid-token-request}
+
+An Events POST request must be sent to the `/2/events` endpoint of the test target host
+system with an **invalid access token** and the syntax specified in [section 6.8.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-request) (the
+EnventBody is irrelevant).
+
+Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
+HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
+re-authenticating.
+
+<div class="example" id="events-invalid">
+Example response body:
+```json
+{
+  "message": "Access denied",
+  "code": "AccessDenied"
+}
+```
+</div>
+
+### Test Case: Attempt Action Events through HTTP (non-HTTPS) ### {#test-events-http}
+
+According to [section 6.4 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
+must offer its actions under https method only.
+
+Therefore, it is our understanding that host systems must not expose any action-related endpoints
+through http (non-https).
+
+#### Request #### {#test-events-http-request}
+
+An http-only equivalent of the test target host system Events endpoint must be generated,
+replacing "https://" by "http://".
+
+An Events POST request must be sent to the generated http endpoint with the the syntax specified in
+[section 6.8.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-request) (the
+access token and EnventBody are irrelevant).
+
+#### Expected Response #### {#test-events-http-response}
+
+No response is expected: the request must not be processed.
+
+### Test Case: Notify of PCF Update ### {#test-events-notify-update}
+
+Note: For this test case, the data owner is the test target host system and the data recipient is
+the testing party. Accordingly, the latter must be conformant with [section 6.8 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events) and behave in
+accordance if the functionality is not implemented.
+
+#### Request #### {#test-events-notify-update-request}
+
+The test target host system must authenticate with the testing party (performing the customary
+[Authentication Flow](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)) and obtain an
+access token.
+
+The test target host system must send a POST request to the testing party's `/2/events` endpoint
+with a valid access token and the syntax specified in [section 6.8.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-case-1).
+
+<div class="example">
+Example request header:
+```http
+POST /2/events HTTP/2
+host: <testing-party-host>
+accept: */*
+authorization: Bearer [BearerToken]
+content-type: application/json
+```
+Example request body:
+```json
+{
+  "specversion": "1.0",
+  "id": "1234",
+  "source":"https://api.pathfinder.sine.dev",
+  "time": "2024-04-12T14:27:58.535Z",
+  "type": "org.wbcsd.pathfinder.ProductFootprint.Published.v1",
+  "data": {
+    "pfIds": [
+      "f4b1225a-bd44-4c8e-861d-079e4e1dfd69"
+    ]
+  }
+}
+```
+</div>
+
+#### Expected Response #### {#test-events-notify-update-response}
+
+If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
+
+Otherwise, it should respond with 400 Bad Request and a JSON body containing the error response
+`NotImplemented`, as specified in [section 6.9 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+
+### Test Case: Receive a Notification of PCF Update ### {#test-events-receive-update}
+
+#### Request #### {#test-events-receive-update-request}
+
+A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
+specified in [section 6.8.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-case-1).
+
+#### Expected Response #### {#test-events-receive-update-response}
+
+The test target host system must respond with 200 OK and an empty body.
+
+If the test target host system calls the GetFootprint action with the `pfId` included in the
+notification, the corresponding PCF must be returned.
+
+### Test Case: Request PCF ### {#test-events-request}
+
+#### Request #### {#test-events-request-request}
+
+A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
+specified in [section 6.8.4.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-case-2-request).
+
+#### Expected Response #### {#test-events-request-response}
+
+The test target host system must respond with 200 OK.
+
+### Test Case: Respond to PCF Request ### {#test-events-respond}
+
+Note: For this test case, the data owner is the test target host system and the data recipient is
+the testing party. Accordingly, the latter must be conformant with [section 6.8 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events) and behave in
+accordance if the functionality is not implemented. This test pressuposes the completion of the
+previous test case [[#test-events-request]] and should be skipped if it failed.
+
+#### Request #### {#test-events-respond-request}
+
+The test target host system must authenticate with the testing party (performing the customary
+[Authentication Flow](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)) and obtain an
+access token.
+
+The test target host system must send a POST request to the testing party's `/2/events` endpoint
+with a valid access token and the syntax specified in [section 6.8.4.2 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-case-2-response).
+
+#### Expected Response #### {#test-events-respond-response}
+
+If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
+
+Otherwise, it should respond with 400 Bad Request and a JSON body containing the error response
+`NotImplemented`, as specified in [section 6.9 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
