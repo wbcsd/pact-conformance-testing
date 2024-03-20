@@ -312,7 +312,7 @@ Example response body (truncated for brevity):
 #### Request #### {#test-listfootprints-limited-request}
 
 A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
-system with a **limit** parameter, a **valid access token** and the syntax specified in [section
+system with the **limit** parameter, a **valid access token** and the syntax specified in [section
 6.6.3 of the Technical
 Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
 
@@ -351,6 +351,8 @@ server: Pathfinder
 link: <https://api.pathfinder.sine.dev/2/footprints?limit=5&offset=5>; rel="next"
 ```
 </div>
+
+Issue: account for the possibility that `limit` is not implemented.
 
 ### Test Case: Get Next Page of Footprints ### {#test-listfootprints-next}
 
@@ -433,3 +435,38 @@ The test target host system may respond with either
 - an error http status code and a JSON body containing an error response.
 
 ### Test Case: Get Filtered List of Footprints (Optional) ### {#test-listfootprints-filtered}
+
+Support for filtering is optional and, when supported, it can be processed in a best-effort basis,
+as specified in [section 6.6.1 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-filtering).
+
+#### Request #### {#test-listfootprints-filtered-request}
+
+A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with the **filter** parameter, a **valid access token** and the syntax specified in [section
+6.6.3 of the Technical
+Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+
+For testing purposes, it is recommended that PCFs are filtered by one of the following properties:
+`created`, `updated`, `productCategoryCpc`, `geographyCountry`, `referencePeriodStart`,
+`referencePeriodEnd`.
+
+<div class="example">
+Example request:
+```http
+GET /2/footprints?$filter=pcf/geographyCountry eq 'DE' HTTP/2
+host: api.pathfinder.sine.dev
+authorization: Bearer [BearerToken]
+```
+</div>
+
+#### Expected Response #### {#test-listfootprints-filtered-response}
+
+The test target host system should respond with 200 OK and a JSON body containing a list of PCFs
+matching the filtering criteria.
+
+However, according to [section 6.6.1 of the Technical
+Speicifcations](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-filtering) the
+test target host system can ignore the filter statement or parts of the filter statement. It can
+also refuse to process a filter statement, but in that case it must respond with 400 Bad Request and
+error code `NotImplemented`.
