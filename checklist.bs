@@ -81,13 +81,13 @@ for the status code 202-case)
 
 ## Preparation ## {#test-cases-preparation}
 
-Prior to this test, the test target host system must provide the testing party with the necessary
-credentials (i.e., a `client_id` and a `client_secret`).
+Prior to all tests, the test target host system must provide the testing party with the necessary
+credentials (i.e., a `client_id` and a `client_secret`). With these credentials, the testing party
+can retrieve the access token needed for all actions other than Authenticate.
 
-Issue: explain that, prior to authentication, the `AuthEndpoint` has to be determined and that this
-can be done through OpenID or defaults to `auth/token`; explain also that in case a custom `AuthEndpoint` is used, the
-endpoint `auth/token` must nevertheless be exposed for backwards compatibility.
-
+Authentication may be supported through a custom `AuthEndpoint`, in which case the test target host
+system must provide an OpenID Provider Configuration Document with the `AuthEndpoint` as the value
+of the `token_endpoint` field. The test target host system must nevertheless expose the `/auth/token` endpoint.
 
 ## Mandatory Functionality ## {#test-cases-mandatory}
 
