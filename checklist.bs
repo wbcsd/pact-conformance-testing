@@ -4,7 +4,7 @@ Shortname: pact-conf-test-checklist
 Level: 2
 Status: LD
 URL: https://wbcsd.github.io/pact-conformance-testing/checklist
-Mailing List: public-dev@pathfinder.sine.dev
+Mailing List: pact@wbcsd.org
 Editor: Prasad Tilloo (SINE Foundation), https://sine.foundation, prasad@sine.foundation
 Editor: Raimundo Henriques (SINE Foundation), https://sine.foundation, raimundo@sine.foundation
 Repository: wbcsd/pact-conformance-testing/
@@ -15,7 +15,7 @@ Boilerplate: omit conformance, omit copyright
 
 # Background: Definition of Conformance # {#background}
 
-Note: The following sections are copied from the tech specs. See the respective technical specification for the latest
+Note: The following section is copied from the tech specs. See the respective technical specification for the latest
 definition.
 
 A conforming [host system](https://wbcsd.github.io/data-exchange-protocol/v2/#host-system) is any algorithm realized as
@@ -26,56 +26,39 @@ A conforming requesting [data recipient](https://wbcsd.github.io/data-exchange-p
 algorithm realized as software and/or hardware that complies with the relevant normative statements in
 [§6 HTTP REST API](https://wbcsd.github.io/data-exchange-protocol/v2/#api).
 
-This checklist is a recommendation from WBCSD to be used as a reference for the Bilateral Conformance Testing.
-
 Click [here](./index.html) to go back to the Conformance Testing guidelines.
 
-# Checklist of/for Functionality for V1 & V2 # {#checklist-v1-v2}
+# Guidance for PACT Conformant Functionality # {#guidance-functionality}
 
-## Mandatory Functionality ## {#v1-v2-mandatory}
+The following section provides guidance on the functionality that is mandatory and optional for a
+host system to be considered conformant with the PACT Technical Specifications.
 
-Host system has implemented the following <strong>Http actions</strong> as specified and
-standardized in Pathfinder Technical Specification Version V1 or V2 based on the Version you followed for your Solution implementation:
+Advisement: Support for Action Events will become mandatory in v2.2 of the Technical Specifications.
 
-::
+## Mandatory Functionality ## {#mandatory}
 
+The following functionality is mandatory for a host system to be considered conformant with the PACT Technical Specifications:
 
-:: <input type=checkbox> Action Authenticate -  as per [V 1.0.x & V 2.0.x](https://wbcsd.github.io/tr/2023/data-exchange-protocol-20231026/#api-action-auth) or as per [V 2.1.x](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)
-:: <input type=checkbox> [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
-:: <input type=checkbox> [Action GetFootprint](https://wbcsd.github.io/data-exchange-protocol/v2/#action-getfootprint)</br>
-    <input type=checkbox> Host system offers its actions under <strong>https</strong> method only</br>
-    <input type=checkbox> Host System performs the <strong>Authentication Flow</strong> for PCF Data exchange as specified
-    in Pathfinder Technical Specification V1 or V2 based on the Version you followed for your Solution implementation for all Actions</br>
-    <input type=checkbox> Host System endpoint follows the <strong>Request/ Response syntax</strong> for all mandatory
-    actions (Authenticate, ListFootPrints, GetFootPrints) and optional action (Action Events – <em>not applicable for V
-    1</em>) as specified in the [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
-    <input type=checkbox> Host System has implemented the Error Responses as specified in the "**Error responses**" Section in the Pathfinder Technical Specification V1 or V2 based on the Version you followed for your Solution implementation
+- All actions are offered under the `https` method only (i.e., `http` requests are not processed)
+- The endpoint `/auth/token` is exposed (even if a custom `AuthEndpoint` is used for authentication)
+- The host system supports the following actions:
+    - [Action Authenticate](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth)
+    - [Action ListFootprints](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list),
+        including pagination and support for the `limit` parameter
+    - [Action GetFootprint](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get)
+- If the host system does not support [Action
+    Events](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events), it responds to
+    authenticated Action Events calls with an [error
+    response](https://wbcsd.github.io/tr/data-exchange-protocol/#error-response) with code
+    [NotImplemented](https://wbcsd.github.io/tr/data-exchange-protocol/#notimplemented)
 
-# Additional Checklist of/for Functionality for V2 # {#additional-v2}
+## Optional Functionality ## {#optional}
 
-## Mandatory Functionality ## {#v2-mandatory}
-
-<input type=checkbox> Host system has:
-:: <input type=checkbox> Implemented [Action Events](https://wbcsd.github.io/data-exchange-protocol/v2/#action-events)
-    as specified in Pathfinder Technical Specification V2 and PCF data was exchanged successfully
-:: <strong>Or</strong>
-:: <input type=checkbox> If not Implemented [Action Events](https://wbcsd.github.io/data-exchange-protocol/v2/#action-events)
-    then it responded to authenticated Action Events calls with an [error response](https://wbcsd.github.io/data-exchange-protocol/v2/#error-response)
-    with code [NotImplemented](https://wbcsd.github.io/data-exchange-protocol/v2/#notimplemented)</br>
-
-
-## Optional (sic!) Functionality ## {#v2-optional}
-
-<input type=checkbox> Host System has implemented Asynchronous request and retrieval of Product Footprints and PCF data
-was exchanged successfully based as specified in the Pathfinder Technical Specification V2 [Section 6.8.4](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-events-case-2)</br>
-<input type=checkbox> <u>Host System has implemented V2 [Section 6.8.3](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-events-case-1)</u></br>
-<input type=checkbox> Host System has implemented footprint Filter functionality (refer [this](https://wbcsd.github.io/data-exchange-protocol/v2/#filter))</br>
-<input type=checkbox> Host system has implemented the Partial Result feature (see  [details]((https://wbcsd.github.io/data-exchange-protocol/v2/#liststatuscode)
-for the status code 202-case)
-<input type=checkbox> Host system [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
-    implements mandatory server side <strong>pagination</strong> as specified in [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
-    <input type=checkbox> Host System has implemented <strong>Product Footprint Lifecycle events</strong> and rules as
-    specified in Pathfinder Technical Specification V2 [Section 5](https://wbcsd.github.io/data-exchange-protocol/v2/#lifecycle)
+- The host system supports [Action
+    Events](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events)
+- The host system implements the [filtering
+    functionality](https://wbcsd.github.io/tr/data-exchange-protocol/#filter) of the ListFootprints
+    action
 
 # Test Cases for PACT Conformance Testing # {#test-cases}
 
@@ -87,7 +70,8 @@ can retrieve the access token needed for all actions other than Authenticate.
 
 Authentication may be supported through a custom `AuthEndpoint`, in which case the test target host
 system must provide an OpenID Provider Configuration Document with the `AuthEndpoint` as the value
-of the `token_endpoint` field. The test target host system must nevertheless expose the `/auth/token` endpoint.
+of the `token_endpoint` field. The test target host system must nevertheless expose the
+`/auth/token` endpoint.
 
 ## Mandatory Functionality ## {#test-cases-mandatory}
 
