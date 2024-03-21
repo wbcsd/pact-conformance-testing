@@ -35,42 +35,38 @@ Advisement: This document does not replace the technical specifications. It is p
 : <dfn>testing party</dfn>
 :: The party witnessing and perforing the tests. Typically, the tester is a data recipient
 : <dfn>Target Host System</dfn>
-:: The [=host system=] under test. 
+:: The [=host system=] under test.
 
 
 # Scope of the Test Cases # {#scope}
 
-The test cases cover the following functionality defined by the PACT Technical Specifications: 
+The test cases cover the following functionality defined by the PACT Technical Specifications:
 
 - All actions are offered under the `https` method only (i.e., `http` requests are not processed)
 - The endpoint `/auth/token` is exposed (even if a custom `AuthEndpoint` is used for authentication)
 - The host system supports the following actions:
-    - [Action Authenticate](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth)
-    - [Action ListFootprints](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list),
+    - [[DXP#api-action-auth|Action Authenticate]]
+    - [[DXP#api-action-list|Action ListFootprints]],
         including pagination and support for the `limit` parameter
-    - [Action GetFootprint](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get)
-- If the host system does not support [Action
-    Events](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events), it responds to
-    authenticated Action Events calls with an [error
-    response](https://wbcsd.github.io/tr/data-exchange-protocol/#error-response) with code
-    [NotImplemented](https://wbcsd.github.io/tr/data-exchange-protocol/#notimplemented)
+    - [[DXP#api-action-get|Action GetFootprint]]
 
+- If the host system does not support [[DXP#api-action-events|Action Events]], it responds to
+    authenticated Action Events calls with an [[DXP#error-response|error response]] with code
+    [[DXP#notimplemented|NotImplemented]].
 
-There are also test cases covering conditional or optional functionality: 
+There are also test cases covering conditional or optional functionality:
 - filtering of the `ListFootprints` action (see [[DXP#api-action-list-filtering]])
 - OpenID Connect-based authentication flow: (see [[DXP#api-auth]])
 - Action Events (see [[DXP#api-action-events]])
 
 Note: Support for Action Events will become mandatory in v2.2 of the Technical Specifications.
 
-
 # Testing Preparation # {#preparation}
 
-Prior to all tests, the owner of the [=target host system=] must provide the [=testing party=] with 
+Prior to all tests, the owner of the [=target host system=] must provide the [=testing party=] with
 1. credentials that the testing party for successful authentication (i.e., a `client_id` and a `client_secret`)
 2. the authentication hostname and path (see [[DXP#authhostname]])
 3. hostname and path used for implementing the different HTTP Actions (see [[DXP#hostname]])
-
 
 # Test Cases for PACT Conformance Testing # {#test-cases}
 
@@ -84,8 +80,7 @@ the default endpoint `/auth/token`.
 #### Request #### {#tc001-request}
 
 An authentication POST request must be sent to the `auth/token` endpoint of the test target host
-system with **correct credentials** the syntax specified in [section 6.5.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request) (the
+system with **correct credentials** the syntax specified in [[DXP#api-action-auth-request]] (the
 credentials need not be correct).
 
 From v2.1 onwards, host systems can also use a custom `AuthEndpoint` for authentication, specified
@@ -96,13 +91,12 @@ in an OpenId Provider Configuration Document.
 Depending on whether authentication through `/auth/token` is supported, the test target host system
 must respond with either
 
-- 200 OK and a JSON body containing the access token, as specified in [section 6.5.2 of the Technical
-    Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response), or
+- 200 OK and a JSON body containing the access token, as specified in
+    [[DXP#api-action-auth-response]], or
 
-- 400 Bad Request and a JSON body containing an error, as specified in [section 6.5.2 of the
-    Technical
-    Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response). In
-    this case, the testing party must execute the test case [[#tc012]].
+- 400 Bad Request and a JSON body containing an error, as specified in
+    [[DXP#api-action-auth-response]]. In this case, the testing party must execute the test case
+    [[#tc012]].
 
 ### Test Case 002: Attempt Authentication with Invalid credentials against `/auth/token` ### {#tc002}
 
@@ -111,22 +105,20 @@ credentials through the default endpoint `/auth/token`.
 
 #### Request #### {#tc002-request}
 
-An authentication POST request must be sent to the `AuthEndpoint` of the test target host system with
-**incorrect credentials** and the syntax specified in [section 6.5.1 of the Technical Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request)
+An authentication POST request must be sent to the `AuthEndpoint` of the test target host system
+with **incorrect credentials** and the syntax specified in [[DXP#api-action-auth-request]]
 
 #### Expected Response #### {#tc002-response}
 
 Depending on whether authentication through `/auth/token` is supported, the test target host system
 must respond with either
 
-- 400 Bad Request and a JSON body containing the error `"invalid_client"`, as specified in [section
-    6.5.2 of the Technical
-    Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response), or
+- 400 Bad Request and a JSON body containing the error `"invalid_client"`, as specified in
+    [[DXP#api-action-auth-response]], or
 
-- 400 Bad Request and a JSON body containing an error, as specified in [section 6.5.2 of the
-    Technical
-    Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response). In
-    this case, the testing party must execute the test case [[#tc013]].
+- 400 Bad Request and a JSON body containing an error, as specified in
+    [[DXP#api-action-auth-response]]. In this case, the testing party must execute the test case
+    [[#tc013]].
 
 ### Test Case 003: Get All Footprints ### {#tc003}
 
@@ -135,16 +127,14 @@ Tests the target host system's ability to list all available PCFs.
 #### Request #### {#tc003-request}
 
 A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
-system with a **valid access token** and the syntax specified in [section 6.6.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+system with a **valid access token** and the syntax specified in [[DXP#api-action-list-request]].
 
 No `limit` or `filter` paramenters should be defined for this test.
 
 #### Expected Response #### {#tc003-response}
 
 The test target host system must respond with 200 OK and a JSON body containing the list of all
-available PCFs, as specified in [section 6.6.4 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response).
+available PCFs, as specified in [[DXP#api-action-list-response]].
 
 ### Test Case 004: Get Limited List of Footrpints ### {#tc004}
 
@@ -154,21 +144,18 @@ is set by the data recipient.
 #### Request #### {#tc004-request}
 
 A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
-system with the **limit** parameter, a **valid access token** and the syntax specified in [section
-6.6.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+system with the **limit** parameter, a **valid access token** and the syntax specified in
+[[DXP#api-action-list-request]].
 
 #### Expected Response #### {#tc004-response}
 
 The test target host system must respond with either 200 OK or 202 Accepted and a JSON body
 containing a list of PCFs with a length equal to or smaller than the limit set in the request, as
-specified in [section 6.6.4 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-response).
+specified in [[DXP#api-action-list-response]].
 
 Unless the total number of available PCFs is equal to or smaller than the limit set in the request,
-the test target host system must return a `Link` header as specified in [section 6.6.2 of the
-Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-pagination).
+the test target host system must return a `Link` header as specified in
+[[DXP#api-action-list-pagination]].
 
 Note: For testing purposes it is recommended to set the limit to a small number (e.g., 2) to ensure
 that pagination is tested.
@@ -186,9 +173,8 @@ within 180 seconds of that call.
 #### Request #### {#tc005-request}
 
 A ListFootPrints GET request must be sent to the URL specified in the `link` of the response header
-obtained through [[#tc004]] with a **valid access token** and the syntax specified in [section 6.6.3
-of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+obtained through [[#tc004]] with a **valid access token** and the syntax specified in
+[[DXP#api-action-list-request]].
 
 After the first response, the test must be repeated to ensure that the same page is returned.
 
@@ -208,14 +194,12 @@ token with the correct error response.
 #### Request #### {#tc006-request}
 
 A ListFootprints GET request must be sent to the `/2/footprints` endpoint of the test target host
-system with an **expired access token** and the syntax specified in [section 6.6.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+system with an **expired access token** and the syntax specified in [[DXP#api-action-list-request]].
 
 #### Expected Response #### {#tc006-response}
 
-The test target host system must respond with a 401 Unnauthorized and a JSON body that should contain the
-error response `TokenExpired`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+The test target host system must respond with a 401 Unnauthorized and a JSON body that should
+contain the error response `TokenExpired`, as specified in [[DXP#api-error-responses]].
 
 Note: Since the access token is expired, re-authentication should in principle solve the issue. By
 returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
@@ -228,15 +212,13 @@ token with the correct error response.
 
 #### Request #### {#tc007-request}
 
-A ListFootprints GET request must be sent to the `/2/footprints` endpoint of the test target host system
-with an **invalid access token** and the syntax specified in [section 6.6.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+A ListFootprints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with an **invalid access token** and the syntax specified in [[DXP#api-action-list-request]].
 
 #### Expected Response #### {#tc007-response}
 
-The test target host system must respond with a 403 Forbidden and a JSON body containing the
-error response `AccessDenied`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+The test target host system must respond with a 403 Forbidden and a JSON body containing the error
+response `AccessDenied`, as specified in [[DXP#api-error-responses]].
 
 Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
 HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
@@ -250,15 +232,13 @@ correspond to one of the PCFs returned by the ListFootprints action.
 #### Request #### {#tc008-request}
 
 A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
-host system with a **valid access token** and the syntax specified in [section 6.7.1 of the
-Technical Specifications]
-(https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request).
+host system with a **valid access token** and the syntax specified in
+[[DXP#api-action-get-request]].
 
 #### Expected Response #### {#tc008-response}
 
 The test target host system must respond with 200 OK and a JSON body containing the PCF with the
-requested `pfId`, as specified in [section 6.7.2 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-response).
+requested `pfId`, as specified in [[DXP#api-action-get-response]].
 
 ### Test Case 009: Attempt GetFootprint with Expired Token ### {#tc009}
 
@@ -268,14 +248,13 @@ with the correct error response.
 #### Request #### {#tc009-request}
 
 A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
-host system with an **expired access token** and the syntax specified in [section 6.7.1 of the
-Technical Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request).
+host system with an **expired access token** and the syntax specified in
+[[DXP#api-action-get-request]].
 
 #### Expected Response #### {#tc009-response}
 
-The test target host system must respond with a 401 Unnauthorized and a JSON body that should contain the
-error response `TokenExpired`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+The test target host system must respond with a 401 Unnauthorized and a JSON body that should
+contain the error response `TokenExpired`, as specified in [[DXP#api-error-responses]].
 
 Note: Since the access token is expired, re-authentication should in principle solve the issue. By
 returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
@@ -286,14 +265,13 @@ re-authentication should be attempted.
 #### Request #### {#tc010-request}
 
 A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
-host system with an **invalid access token** and the syntax specified in [section 6.7.1 of the
-Technical Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request).
+host system with an **invalid access token** and the syntax specified in
+[[DXP#api-action-get-request]].
 
 #### Expected Response #### {#tc010-response}
 
 The test target host system must respond with a 403 Forbidden and a JSON body containing the error
-response `AccessDenied`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+response `AccessDenied`, as specified in [[DXP#api-error-responses]].
 
 Note: Since the access token is invalid, re-authentication cannot solve the issue. By
 returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
@@ -309,43 +287,36 @@ a custom `AuthEndpoint`.
 #### Request #### {#tc011-request}
 
 An athentication POST request must be sent to the `AuthEndpoint` of the test target host system with
-**correct credentials** and the syntax specified in [section 6.5.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request)
+**correct credentials** and the syntax specified in [[DXP#api-action-auth-request]].
 
 #### Expected Response #### {#tc011-response}
 
 The test target host system must respond with 200 OK and a JSON body containing the access token, as
-specified in [section 6.5.2 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response).
+specified in [[DXP#api-action-auth-response]].
 
 ### Test Case 012: Attempt Authentication with Invalid Credentials against Custom `AuthEndpoint`  ### {#tc012}
 
 #### Request #### {#tc012-request}
 
-An authentication POST request must be sent to the `AuthEndpoint` of the test target host system with
-**incorrect credentials** and the syntax specified in [section 6.5.1 of the Technical Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request)
+An authentication POST request must be sent to the `AuthEndpoint` of the test target host system
+with **incorrect credentials** and the syntax specified in [[DXP#api-action-auth-request]].
 
 #### Expected Response #### {#tc012-response}
 
 The test target host system must respond with a 400 Bad Request and a JSON body containing the error
-`"invalid_client"`, as specified in [section 6.5.2 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-response).
+`"invalid_client"`, as specified in [[DXP#api-action-auth-response]].
 
 ### Test Case 013: Attempt Authentication through HTTP (non-HTTPS) ### {#tc013}
 
-According to [section 6.4 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
-must offer its actions under https method only.
+According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
 
 #### Request #### {#t013-request}
 
 An http-only equivalent of the test target host system `AuthEndpoint` (be it `/auth/token` or a
 custom endpoint) must be generated, replacing "https://" by "http://".
 
-An authentication POST request must be sent to the generated http endpoint with the the syntax specified
-in [section 6.5.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-auth-request) (the
-credentials need not be correct).
+An authentication POST request must be sent to the generated http endpoint with the the syntax
+specified in [[DXP#api-action-auth-request]] (the credentials need not be correct).
 
 #### Expected Response #### {#t013-response}
 
@@ -353,9 +324,7 @@ No response is expected: the request must not be processed.
 
 ### Test Case 014: Attempt ListFootprints through HTTP (non-HTTPS) ### {#tc014}
 
-According to [section 6.4 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
-must offer its actions under https method only.
+According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
 
 #### Request #### {#tc014-request}
 
@@ -363,9 +332,7 @@ An http-only equivalent of the test target host system ListFootprints endpoint m
 replacing "https://" by "http://".
 
 A ListFootprints GET request must be sent to the generated http endpoint with the the syntax
-specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request) (the
-access token need not be valid).
+specified in [[DXP#api-action-list-request]] (the access token need not be valid).
 
 #### Expected Response #### {#tc014-response}
 
@@ -376,9 +343,8 @@ No response is expected: the request must not be processed.
 Note: This test pressuposes the completion of [[#tc004]] and {#test-listfootprints-next}. If any of
 these fail, this test should be skipped.
 
-According to [section 6.6.2 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-pagination), a
-pagination link might no longer work after a new page is requested.
+According to [[DXP#api-action-list-pagination]], a pagination link might no longer work after a new
+page is requested.
 
 This test presupposes that the test target host system has enough PCFs available to allow for their
 division into three pages.
@@ -387,14 +353,12 @@ division into three pages.
 
 After requesting the second page of footprints through {#test-listfootprints-next}, a ListFootprints
 GET request must be sent to the URL specified in the `link` of the response header (assuming there
-is one) with a **valid access token** and the syntax specified in [section 6.6.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request). At that
-point, the third page of PCFs should be returned.
+is one) with a **valid access token** and the syntax specified in [[DXP#api-action-list-request]].
+At that point, the third page of PCFs should be returned.
 
 The URL specified in the `link` of the response header of the second page must be stored. A
 ListFootprints GET request must be sent to this URL with a **valid access token** and the syntax
-specified in [section 6.6.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+specified in [[DXP#api-action-list-request]].
 
 #### Expected Response #### {#tc015-response}
 
@@ -405,15 +369,13 @@ The test target host system may respond with either
 ### Test Case 016: Get Filtered List of Footprints ### {#tc016}
 
 Support for filtering is optional and, when supported, it can be processed in a best-effort basis,
-as specified in [section 6.6.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-filtering).
+as specified in [[DXP#api-action-list-filtering]].
 
 #### Request #### {#tc016-request}
 
 A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
-system with the **filter** parameter, a **valid access token** and the syntax specified in [section
-6.6.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-list-request).
+system with the **filter** parameter, a **valid access token** and the syntax specified in
+[[DXP#api-action-list-request]].
 
 #### Expected Response #### {#tc016-response}
 
@@ -429,20 +391,16 @@ with the correct error response.
 
 A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
 host system, where `{GetPfId}` is a **non-existent** `pfId`, with a **valid access token** and the
-syntax specified in [section 6.7.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request).
+syntax specified in [[DXP#api-action-get-request]].
 
 #### Expected Response #### {#tc017-response}
 
-The test target host system should respond with a 404 Not Found and a JSON body
-containing the error code `NoSuchFootprint`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+The test target host system should respond with a 404 Not Found and a JSON body containing the error
+code `NoSuchFootprint`, as specified in [[DXP#api-error-responses]].
 
 ### Test Case 018: Attempt GetFootprint through HTTP (non-HTTPS) ### {#tc018}
 
-According to [section 6.4 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
-must offer its actions under https method only.
+According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
 
 Therefore, it is our understanding that host systems must not expose any action-related endpoints
 through http (non-https).
@@ -453,9 +411,7 @@ An http-only equivalent of the test target host system GetFootprint endpoint mus
 replacing "https://" by "http://".
 
 A GetFootprint GET request must be sent to the generated http endpoint with the the syntax specified
-in [section 6.7.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-get-request) (the
-GetPfId need not exist).
+in [[DXP#api-action-get-request]] (the GetPfId need not exist).
 
 #### Expected Response #### {#tc018-response}
 
@@ -470,8 +426,7 @@ Tests the target host system's ability to be notified of a PCF update.
 #### Request #### {#tc019-request}
 
 A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
-specified in [section 6.8.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-case-1).
+specified in [[DXP#api-action-events-case-1]].
 
 #### Expected Response #### {#tc019-response}
 
@@ -487,27 +442,23 @@ Advisement: This test case will become mandatory in v2.2 of the Technical Specif
 Tests the target host system's ability to notify a data recipient of a PCF update.
 
 Note: For this test case, the data owner is the test target host system and the data recipient is
-the testing party. Accordingly, the latter must be conformant with [section 6.8 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events) and behave in
-accordance if the functionality is not implemented.
+the testing party. Accordingly, the latter must be conformant with [[DXP#api-action-events]] and
+behave in accordance if the functionality is not implemented.
 
 #### Request #### {#tc020-request}
 
 The test target host system must authenticate with the testing party (performing the customary
-[Authentication Flow](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)) and obtain an
-access token.
+[[DXP#api-auth|Authentication Flow]] and obtain an access token.
 
 The test target host system must send a POST request to the testing party's `/2/events` endpoint
-with a valid access token and the syntax specified in [section 6.8.3 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-case-1).
+with a valid access token and the syntax specified in [[DXP#api-action-events-case-1]].
 
 #### Expected Response #### {#tc020-response}
 
 If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
 
 Otherwise, it should respond with 400 Bad Request and a JSON body containing the error response
-`NotImplemented`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+`NotImplemented`, as specified in [[DXP#api-error-responses]].
 
 ### Test Case 021: Asynchronous PCF Request ### {#tc021}
 
@@ -518,8 +469,7 @@ Tests the target host system's ability to receive an asynchronous PCF request.
 #### Request #### {#tc021-request}
 
 A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
-specified in [section 6.8.4.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-case-2-request).
+specified in [[DXP#api-action-events-case-2-request]].
 
 #### Expected Response #### {#tc021-response}
 
@@ -532,28 +482,24 @@ Advisement: This test case will become mandatory in v2.2 of the Technical Specif
 Tests the target host system's ability to respond to an asynchronous PCF request.
 
 Note: For this test case, the data owner is the test target host system and the data recipient is
-the testing party. Accordingly, the latter must be conformant with [section 6.8 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events) and behave in
-accordance if the functionality is not implemented. This test pressuposes the completion of
-[[#tc022]] and should be skipped if it failed.
+the testing party. Accordingly, the latter must be conformant with [[DXP#api-action-events]] and
+behave in accordance if the functionality is not implemented. This test pressuposes the completion
+of [[#tc022]] and should be skipped if it failed.
 
 #### Request #### {#tc022-request}
 
 The test target host system must authenticate with the testing party (performing the customary
-[Authentication Flow](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)) and obtain an
-access token.
+[[DXP#api-auth|Authentication Flow]] and obtain an access token.
 
 The test target host system must send a POST request to the testing party's `/2/events` endpoint
-with a valid access token and the syntax specified in [section 6.8.4.2 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-case-2-response).
+with a valid access token and the syntax specified in [[DXP#api-action-events-case-2-response]].
 
 #### Expected Response #### {#tc022-response}
 
 If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
 
 Otherwise, it should respond with 400 Bad Request and a JSON body containing the error response
-`NotImplemented`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+`NotImplemented`, as specified in [[DXP#api-error-responses]].
 
 ### Test Case 023: Attempt Action Events with Expired Token ### {#tc023}
 
@@ -562,16 +508,14 @@ the correct error response.
 
 #### Request #### {#tc023-request}
 
-An Events POST request must be sent to the `/2/events` endpoint of the test target host
-system with an **expired access token** and the syntax specified in [section 6.8.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-request) (the
+An Events POST request must be sent to the `/2/events` endpoint of the test target host system with
+an **expired access token** and the syntax specified in [[DXP#api-action-events-request]] (the
 EnventBody is irrelevant).
 
 #### Expected Response #### {#tc023-response}
 
 The test target host system must respond with a 401 Unnauthorized and a JSON body that should
-contain the error response `TokenExpired`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+contain the error response `TokenExpired`, as specified in [[DXP#api-error-responses]].
 
 Note: Since the access token is expired, re-authentication should in principle solve the issue. By
 returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
@@ -584,9 +528,8 @@ the correct error response.
 
 #### Request #### {#tc024-request}
 
-An Events POST request must be sent to the `/2/events` endpoint of the test target host
-system with an **invalid access token** and the syntax specified in [section 6.8.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-request) (the
+An Events POST request must be sent to the `/2/events` endpoint of the test target host system with
+an **invalid access token** and the syntax specified in [[DXP#api-action-events-request]] (the
 EnventBody is irrelevant).
 
 Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
@@ -595,9 +538,8 @@ re-authenticating.
 
 #### Expected Response #### {#tc024-response}
 
-The test target host system must respond with a 403 Forbidden and a JSON body containing the
-error response `AccessDenied`, as specified in [section 6.9 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-error-responses).
+The test target host system must respond with a 403 Forbidden and a JSON body containing the error
+response `AccessDenied`, as specified in [[DXP#api-error-responses]].
 
 Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
 HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
@@ -605,9 +547,7 @@ re-authenticating.
 
 ### Test Case 025: Attempt Action Events through HTTP (non-HTTPS) ### {#tc025}
 
-According to [section 6.4 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-requirements), a host system
-must offer its actions under https method only.
+According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
 
 Therefore, it is our understanding that host systems must not expose any action-related endpoints
 through http (non-https).
@@ -618,9 +558,7 @@ An http-only equivalent of the test target host system Events endpoint must be g
 replacing "https://" by "http://".
 
 An Events POST request must be sent to the generated http endpoint with the the syntax specified in
-[section 6.8.1 of the Technical
-Specifications](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events-request) (the
-access token and EnventBody are irrelevant).
+[[DXP#api-action-events-request]] (the access token and EnventBody are irrelevant).
 
 #### Expected Response #### {#tc025-response}
 
