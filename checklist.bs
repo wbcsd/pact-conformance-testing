@@ -4,75 +4,586 @@ Shortname: pact-conf-test-checklist
 Level: 2
 Status: LD
 URL: https://wbcsd.github.io/pact-conformance-testing/checklist
-Mailing List: public-dev@pathfinder.sine.dev
+Mailing List: pact@wbcsd.org
 Editor: Prasad Tilloo (SINE Foundation), https://sine.foundation, prasad@sine.foundation
 Editor: Raimundo Henriques (SINE Foundation), https://sine.foundation, raimundo@sine.foundation
 Repository: wbcsd/pact-conformance-testing/
 Abstract: Checklist for conformance testing within the PACT ecosystem.
 Markup Shorthands: markdown yes
+Markup Shorthands: biblio yes
+Max ToC Depth: 2
 Boilerplate: omit conformance, omit copyright
 </pre>
 
-# Background: Definition of Conformance # {#background}
+# Introduction # {#background}
 
-Note: The following sections are copied from the tech specs. See the respective technical specification for the latest
-definition.
+Conformance testing is a necessary process to ensure interoperability between independent implementations of the [[!DXP|PACT Technical Specifications]].
 
-A conforming [host system](https://wbcsd.github.io/data-exchange-protocol/v2/#host-system) is any algorithm realized as
-software and/or hardware that complies with the relevant normative statements in
-[§6 HTTP REST API](https://wbcsd.github.io/data-exchange-protocol/v2/#api).
-
-A conforming requesting [data recipient](https://wbcsd.github.io/data-exchange-protocol/v2/#data-recipient) is any
-algorithm realized as software and/or hardware that complies with the relevant normative statements in
-[§6 HTTP REST API](https://wbcsd.github.io/data-exchange-protocol/v2/#api).
-
-This checklist is a recommendation from WBCSD to be used as a reference for the Bilateral Conformance Testing.
-
-Click [here](./index.html) to go back to the Conformance Testing guidelines.
-
-# Checklist of/for Functionality for V1 & V2 # {#checklist-v1-v2}
-
-## Mandatory Functionality ## {#v1-v2-mandatory}
-
-Host system has implemented the following <strong>Http actions</strong> as specified and
-standardized in Pathfinder Technical Specification Version V1 or V2 based on the Version you followed for your Solution implementation:
-
-::
-
-   
-:: <input type=checkbox> Action Authenticate -  as per [V 1.0.x & V 2.0.x](https://wbcsd.github.io/tr/2023/data-exchange-protocol-20231026/#api-action-auth) or as per [V 2.1.x](https://wbcsd.github.io/tr/data-exchange-protocol/#api-auth)
-:: <input type=checkbox> [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
-:: <input type=checkbox> [Action GetFootprint](https://wbcsd.github.io/data-exchange-protocol/v2/#action-getfootprint)</br>
-    <input type=checkbox> Host system offers its actions under <strong>https</strong> method only</br>
-    <input type=checkbox> Host System performs the <strong>Authentication Flow</strong> for PCF Data exchange as specified
-    in Pathfinder Technical Specification V1 or V2 based on the Version you followed for your Solution implementation for all Actions</br>
-    <input type=checkbox> Host System endpoint follows the <strong>Request/ Response syntax</strong> for all mandatory
-    actions (Authenticate, ListFootPrints, GetFootPrints) and optional action (Action Events – <em>not applicable for V
-    1</em>) as specified in the [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
-    <input type=checkbox> Host System has implemented the Error Responses as specified in the "**Error responses**" Section in the Pathfinder Technical Specification V1 or V2 based on the Version you followed for your Solution implementation
-
-# Additional Checklist of/for Functionality for V2 # {#additional-v2}
-
-## Mandatory Functionality ## {#v2-mandatory}
-
-<input type=checkbox> Host system has:
-:: <input type=checkbox> Implemented [Action Events](https://wbcsd.github.io/data-exchange-protocol/v2/#action-events)
-    as specified in Pathfinder Technical Specification V2 and PCF data was exchanged successfully
-:: <strong>Or</strong>
-:: <input type=checkbox> If not Implemented [Action Events](https://wbcsd.github.io/data-exchange-protocol/v2/#action-events)
-    then it responded to authenticated Action Events calls with an [error response](https://wbcsd.github.io/data-exchange-protocol/v2/#error-response)
-    with code [NotImplemented](https://wbcsd.github.io/data-exchange-protocol/v2/#notimplemented)</br>
+This guidance document supports manual [[!CONNECTATHONS|conformance testing processes]] by defining [=required test case|required=] and [=conditional test cases=].
+Advisement: This document does not replace the technical specifications. It is possible that there are deviations between this document and the technical specifications. These cases are unintended. This document also does not superseed or otherwise have normative value over the technical specifications.
 
 
-## Optional (sic!) Functionality ## {#v2-optional}
+# Terminology # {#terminology}
 
-<input type=checkbox> Host System has implemented Asynchronous request and retrieval of Product Footprints and PCF data
-was exchanged successfully based as specified in the Pathfinder Technical Specification V2 [Section 6.8.4](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-events-case-2)</br>
-<input type=checkbox> <u>Host System has implemented V2 [Section 6.8.3](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-events-case-1)</u></br>
-<input type=checkbox> Host System has implemented footprint Filter functionality (refer [this](https://wbcsd.github.io/data-exchange-protocol/v2/#filter))</br>
-<input type=checkbox> Host system has implemented the Partial Result feature (see  [details]((https://wbcsd.github.io/data-exchange-protocol/v2/#liststatuscode)
-for the status code 202-case)
-<input type=checkbox> Host system [Action ListFootprints](https://wbcsd.github.io/data-exchange-protocol/v2/#action-listfootprints)
-    implements mandatory server side <strong>pagination</strong> as specified in [Pathfinder Technical Specification V2](https://wbcsd.github.io/data-exchange-protocol/v2/#api-action-list-pagination)</br>
-    <input type=checkbox> Host System has implemented <strong>Product Footprint Lifecycle events</strong> and rules as
-    specified in Pathfinder Technical Specification V2 [Section 5](https://wbcsd.github.io/data-exchange-protocol/v2/#lifecycle)
+: <dfn>Required Test Case</dfn>
+:: Test case relating to MANDATORY functionality
+: <dfn>Conditional Test Case</dfn>
+:: Test cases relating to OPTIONAL functionality.
+: <dfn>Host System</dfn>
+:: see [[DXP#host-system]]
+: <dfn>testing party</dfn>
+:: The party witnessing and perforing the tests. Typically, the tester is a data recipient
+: <dfn>Target Host System</dfn>
+:: The [=host system=] under test.
+
+
+# Scope # {#scope}
+
+This document defines test cases to be used for testing the interoperability of independent implementations of the PACT Technical Specifications.
+
+A test case contains instructions to be executed by a [=testing party=] against a [=target host system=] so that the [=testing party=] can compare the behavior of the [=target host system=] with the expected behavior according to the [[DXP|technical specifications]].
+
+Test cases for the following functionality are defined in [[#required-tests]]:
+
+- All actions are offered under the `https` method only (i.e., `http` requests are not processed)
+- The endpoint `/auth/token` is exposed (even if a custom `AuthEndpoint` is used for authentication)
+- The host system supports the following actions:
+    - [[DXP#api-action-auth|Action Authenticate]]
+    - [[DXP#api-action-list|Action ListFootprints]],
+        including pagination and support for the `limit` parameter
+    - [[DXP#api-action-get|Action GetFootprint]]
+
+- If the host system does not support [[DXP#api-action-events|Action Events]], it responds to
+    authenticated Action Events calls with an [[DXP#error-response|error response]] with code
+    [[DXP#notimplemented|NotImplemented]].
+
+There are also test cases for conditional or optional functionality defined in [[#conditional-tests]]:
+
+- filtering of the `ListFootprints` action (see [[DXP#api-action-list-filtering]])
+- OpenID Connect-based authentication flow (see [[DXP#api-auth]])
+- HTTP Action Events (see [[DXP#api-action-events]])
+
+Note: Support for Action Events will become mandatory in v2.2 of the Technical Specifications.
+
+# Testing Preparation # {#preparation}
+
+Prior to all tests, the owner of the [=target host system=] must provide the [=testing party=] with
+1. credentials that the testing party for successful authentication (i.e., a `client_id` and a `client_secret`)
+2. the authentication URL to use (see [[DXP#authhostname]])
+3. the base URL to the different HTTP Actions defined in the PACT Technical Specifications (see [[DXP#hostname]])
+
+<div class=example>
+    Example test configuration:
+    - `client_id`: `test123`
+    - `client_secret`: `foobar`
+    - Authentication URL: `https://idp.example.com/`
+    - Base URL: `https://example.com/pathfinderapi`
+</div>
+
+
+# Required Test Cases # {#required-tests}
+
+## Test Case 001: Authentication against default endpoint ## {#tc001}
+
+Tests the [=target host system=]'s ability to authenticate a data recipient through
+the [[DXP#api-action-auth|Action Authenticate]] endpoint offered through the default path `/auth/token`:
+
+### Request ### {#tc001-request}
+
+An authentication POST request must be sent to the `auth/token` endpoint of the test target host
+system with **correct credentials** the syntax specified in [[DXP#api-action-auth-request]] (the
+credentials need not be correct).
+
+From v2.1 onwards, host systems can also use a custom `AuthEndpoint` for authentication, specified
+in an OpenId Provider Configuration Document. This is tested through [[#tc012]].
+
+### Expected Response ### {#tc001-response}
+
+Depending on whether authentication through `/auth/token` is supported, the test target host system
+must respond with either
+
+- 200 OK and a JSON body containing the access token, as specified in
+    [[DXP#api-action-auth-response]], or
+
+- 400 Bad Request and a JSON body containing an error, as specified in
+    [[DXP#api-action-auth-response]]. In this case, the testing party must execute the test case
+    [[#tc012]].
+
+## Test Case 002: Authentication with invalid credentials against default endpoint ## {#tc002}
+
+Tests the target host system's ability to reject an authentication request with invalid
+credentials through the default endpoint `/auth/token`.
+
+### Request ### {#tc002-request}
+
+A test case similar to [[#tc001]] but performed with **incorrect credentials** (i.e. the `client id`
+and/or `client secret` are unknown to the [=target host system=]).
+
+### Expected Response ### {#tc002-response}
+
+The [=target host system=] responds with `400 Bad Request` and a JSON body containing the error
+`"invalid_client"`, as specified in [[DXP#api-action-auth-response]].
+
+## Test Case 003: Get All Footprints ## {#tc003}
+
+Tests the target host system's ability to list all available PCFs.
+
+### Request ### {#tc003-request}
+
+A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with a **valid access token** and the syntax specified in [[DXP#api-action-list-request]].
+
+No additional request parameters, such as `limit` or `filter`, must be defined.
+
+### Expected Response ### {#tc003-response}
+
+The test target host system must respond with 200 OK and a JSON body containing the list of all
+available PCFs, as specified in [[DXP#api-action-list-response]].
+
+## Test Case 004: Get Limited List of Footprints ## {#tc004}
+
+Tests the target host system's ability to list a limited number of PCFs when the `limit` parameter
+is set by the data recipient.
+
+### Request ### {#tc004-request}
+
+A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with the **limit** parameter, a **valid access token** and the syntax specified in
+[[DXP#api-action-list-request]].
+
+### Expected Response ### {#tc004-response}
+
+The test target host system must respond with
+1. either an HTTP status code `200` "OK" with a response body containing a list of PCFs with a length equal to or
+    smaller than the limit set in the request, as specified in [[DXP#api-action-list-response]].
+    Unless the total number of available PCFs is equal to or smaller than the limit set in the request,
+    the test target host system must return a `Link` header
+2. or an HTTP status code `202` and an empty body
+
+Note: For testing purposes it is recommended to set the limit to a small number (e.g., 2) to ensure
+that pagination is tested.
+
+## Test Case 005: Pagination link implementation of Action ListFootprints ## {#tc005}
+
+Note: This test pressuposes the completion of [[#tc004]] and uses the `link` returned in the header.
+If [[#tc004]] fails, this test can be skipped.
+
+Tests the target host system's ability to return PCFs when the same pagination link, returned through the `link` header,
+is called multiple times.
+
+### Request ### {#tc005-request}
+
+The [=testing party=] calls the `ListFootprints` action ([[DXP#api-action-list-request]])
+with a valid access token such that a `link` header is returned by the [=target host system=].
+The [=testing party=] selects a pagination link from a `link` header at random to perform the tests against.
+The [=testing party=] then calls the pagination link 2 or more times.
+
+This test must conclude within 180 seconds after the pagination link was retrieved originally.
+
+### Expected Response ### {#tc005-response}
+
+The test target host system must respond with either 200 OK or 202 Accepted and a JSON body
+containing PCFs. The contents of the response bodies should be the same across all calls to the
+pagination link.
+
+## Test Case 006: Attempt ListFootprints with Expired Token ## {#tc006}
+
+Tests the target host system's ability to reject a ListFootprints request with an expired access
+token with the correct error response.
+
+### Request ### {#tc006-request}
+
+A ListFootprints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with an **expired access token** and the syntax specified in [[DXP#api-action-list-request]].
+
+### Expected Response ### {#tc006-response}
+
+The test target host system must respond with a 401 Unnauthorized and a JSON body that should
+contain the error response `TokenExpired`, as specified in [[DXP#api-error-responses]].
+
+Note: Since the access token is expired, re-authentication should in principle solve the issue. By
+returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
+re-authentication should be attempted.
+
+## Test Case 007: Attempt ListFootPrints with Invalid Token ## {#tc007}
+
+Tests the target host system's ability to reject a ListFootprints request with an invalid access
+token with the correct error response.
+
+### Request ### {#tc007-request}
+
+A ListFootprints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with an **invalid access token** and the syntax specified in [[DXP#api-action-list-request]].
+
+### Expected Response ### {#tc007-response}
+
+The test target host system must respond with a 403 Forbidden and a JSON body containing the error
+response `AccessDenied`, as specified in [[DXP#api-error-responses]].
+
+Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
+HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
+re-authenticating.
+
+## Test Case 008: Get Footprint ## {#tc008}
+
+Tests the target host system's ability to return a PCF with a specific `pfId`. This `pfId` must
+correspond to one of the PCFs returned by the ListFootprints action.
+
+### Request ### {#tc008-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system with a **valid access token** and the syntax specified in
+[[DXP#api-action-get-request]].
+
+### Expected Response ### {#tc008-response}
+
+The test target host system must respond with 200 OK and a JSON body containing the PCF with the
+requested `pfId`, as specified in [[DXP#api-action-get-response]].
+
+## Test Case 009: Attempt GetFootprint with Expired Token ## {#tc009}
+
+Tests the target host system's ability to reject a GetFootprint request with an expired access token
+with the correct error response.
+
+### Request ### {#tc009-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system with an **expired access token** and the syntax specified in
+[[DXP#api-action-get-request]].
+
+### Expected Response ### {#tc009-response}
+
+The test target host system must respond with a 401 Unnauthorized and a JSON body that should
+contain the error response `TokenExpired`, as specified in [[DXP#api-error-responses]].
+
+Note: Since the access token is expired, re-authentication should in principle solve the issue. By
+returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
+re-authentication should be attempted.
+
+## Test Case 010: Attempt GetFootprint with Invalid Token ## {#tc010}
+
+### Request ### {#tc010-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system with an **invalid access token** and the syntax specified in
+[[DXP#api-action-get-request]].
+
+### Expected Response ### {#tc010-response}
+
+The test target host system must respond with a 403 Forbidden and a JSON body containing the error
+response `AccessDenied`, as specified in [[DXP#api-error-responses]].
+
+Note: Since the access token is invalid, re-authentication cannot solve the issue. By
+returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
+there is no gain in re-authenticating.
+
+
+## Test Case 011: Attempt GetFootprint with Non-Existent PfId ## {#tc011}
+
+Tests the target host system's ability to reject a GetFootprint request with a non-existent `pfId`
+with the correct error response.
+
+
+### Request ### {#tc011-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system, where `{GetPfId}` is a **non-existent** `pfId`, with a **valid access token** and the
+syntax specified in [[DXP#api-action-get-request]].
+
+### Expected Response ### {#tc011-response}
+
+The test target host system should respond with a 404 Not Found and a JSON body containing the error
+code `NoSuchFootprint`, as specified in [[DXP#api-error-responses]].
+
+
+# Conditional Test Cases # {#conditional-tests}
+
+## Test Case 012: OpenId Connect-based Authentication Flow ## {#tc012}
+
+Tests [=target host system=]'s ability to authenticate a requesting data recipient through
+a custom `AuthEndpoint`.
+
+### Condition ### {#tc012-condition}
+
+The [=target host system=] supports the OpenId connect-based authentication flow (see [[DXP#api-auth]]).
+
+### Request ### {#tc012-request}
+
+Following the OpenId Connect-based authentication flow, the [=testing party=] retrieves the
+OpenId Provider Configuration Document.
+
+The [=testing party=] then authenticates through the `AuthEndpoint` referenced in the Configuration Document
+as specified [[DXP#api-action-auth-request]].
+
+### Expected Response ### {#tc012-response}
+
+1. The [=target host system=] returns a valid OpenId Provider Configuration Document
+2. The test target host system responds with 200 OK and a JSON body containing the access token, as
+    specified in [[DXP#api-action-auth-response]] upon the [=testing party=] authenticating through the `token` endpoint
+    referenced in the Configuration Document.
+
+
+## Test Case 013: OpenId connect-based authentication flow with incorrect credentials  ## {#tc013}
+
+### Condition ### {#tc013-condition}
+
+The [=target host system=] supports the OpenId connect-based authentication flow (see [[DXP#api-auth]]).
+
+### Request ### {#tc013-request}
+
+The [=testing party=] performs the same flow as in [[#tc012-request]] but with **incorrect credentials**.
+
+### Expected Response ### {#tc013-response}
+
+1. The [=target host system=] returns a valid OpenId Provider Configuration Document
+2. The target host system respons with a 400 Bad Request and a JSON body containing the error
+    `"invalid_client"`, as specified in [[DXP#api-action-auth-response]].
+
+
+## Test Case 014: Attempt Authentication through HTTP (non-HTTPS) ## {#tc014}
+
+According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
+
+### Request ### {#t014-request}
+
+An http-only equivalent of the test target host system `AuthEndpoint` (be it `/auth/token` or a
+custom endpoint) must be generated, replacing "https://" by "http://".
+
+An authentication POST request must be sent to the generated http endpoint with the the syntax
+specified in [[DXP#api-action-auth-request]] (the credentials need not be correct).
+
+### Expected Response ### {#t014-response}
+
+The [=target host system=] either refuses to process the request
+(for instance the HTTP port 80 is not open) or responds with an HTTP error response code.
+
+
+## Test Case 015: Attempt ListFootprints through HTTP (non-HTTPS) ## {#tc015}
+
+According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
+
+### Request ### {#tc015-request}
+
+An http-only equivalent of the test target host system ListFootprints endpoint must be generated,
+replacing "https://" by "http://".
+
+A ListFootprints GET request must be sent to the generated http endpoint with the the syntax
+specified in [[DXP#api-action-list-request]] (the access token need not be valid).
+
+### Expected Response ### {#tc015-response}
+
+The [=target host system=] either refuses to process the request
+(for instance the HTTP port 80 is not open) or responds with an HTTP error response code.
+
+
+## Test Case 016: Get Filtered List of Footprints ## {#tc016}
+
+Tests the filtering implementation of a [=target host system=]'s ListFootprints action (see [[DXP#api-action-list-filtering]]).
+
+### Condition ### {#tc016-condition}
+
+The [=target host system=] supports filtering.
+
+### Request ### {#tc016-request}
+
+A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
+system with the **filter** parameter, a **valid access token** and the syntax specified in
+[[DXP#api-action-list-request]].
+
+### Expected Response ### {#tc016-response}
+
+The test target host system should respond with 200 OK and a JSON body containing a list of PCFs
+matching the filtering criteria.
+
+## Test Case 017: Attempt GetFootprint through HTTP (non-HTTPS) ## {#tc017}
+
+According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
+
+Therefore, it is our understanding that host systems must not expose any action-related endpoints
+through http (non-https).
+
+### Request ### {#tc017-request}
+
+An http-only equivalent of the test target host system GetFootprint endpoint must be generated,
+replacing "https://" by "http://".
+
+A GetFootprint GET request must be sent to the generated http endpoint with the the syntax specified
+in [[DXP#api-action-get-request]] (the GetPfId need not exist).
+
+### Expected Response ### {#tc017-response}
+
+The [=target host system=] either refuses to process the request
+(for instance the HTTP port 80 is not open) or responds with an HTTP error response code.
+
+## Test Case 018: Receive Notification of PCF Update ## {#tc018}
+
+Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
+
+Tests the target host system's ability to be notified of a PCF update.
+
+### Request ### {#tc018-request}
+
+A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
+specified in [[DXP#api-action-events-case-1]].
+
+### Expected Response ### {#tc018-response}
+
+The test target host system must respond with 200 OK and an empty body.
+
+If the test target host system calls the GetFootprint action with the `pfId` included in the
+notification, the corresponding PCF must be returned.
+
+## Test Case 019: Notify of PCF Update ## {#tc019}
+
+Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
+
+Tests the target host system's ability to notify a data recipient of a PCF update.
+
+Note: For this test case, the data owner is the test target host system and the data recipient is
+the testing party. Accordingly, the latter must be conformant with [[DXP#api-action-events]] and
+behave in accordance if the functionality is not implemented.
+
+### Request ### {#tc019-request}
+
+The test target host system must authenticate with the testing party (performing the customary
+[[DXP#api-auth|Authentication Flow]] and obtain an access token.
+
+The test target host system must send a POST request to the testing party's `/2/events` endpoint
+with a valid access token and the syntax specified in [[DXP#api-action-events-case-1]].
+
+### Expected Response ### {#tc019-response}
+
+If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
+
+Otherwise, it should respond with 400 Bad Request and a JSON body containing the error response
+`NotImplemented`, as specified in [[DXP#api-error-responses]].
+
+## Test Case 020: Asynchronous PCF Request ## {#tc020}
+
+Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
+
+Tests the target host system's ability to receive an asynchronous PCF request.
+
+### Request ### {#tc020-request}
+
+A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
+specified in [[DXP#api-action-events-case-2-request]].
+
+### Expected Response ### {#tc020-response}
+
+The test target host system must respond with 200 OK.
+
+## Test Case 021: Respond to Asynchronous PCF Request ## {#tc021}
+
+Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
+
+Tests the target host system's ability to respond to an asynchronous PCF request.
+
+Note: For this test case, the data owner is the test target host system and the data recipient is
+the testing party. Accordingly, the latter must be conformant with [[DXP#api-action-events]] and
+behave in accordance if the functionality is not implemented. This test pressuposes the completion
+of [[#tc020]] and should be skipped if it failed.
+
+### Request ### {#tc021-request}
+
+The test target host system must authenticate with the testing party (performing the customary
+[[DXP#api-auth|Authentication Flow]]) and obtain an access token.
+
+The test target host system must send a POST request to the testing party's `/2/events` endpoint
+with a valid access token and the syntax specified in [[DXP#api-action-events-case-2-response]].
+
+### Expected Response ### {#tc021-response}
+
+If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
+
+Otherwise, it should respond with 400 Bad Request and a JSON body containing the error response
+`NotImplemented`, as specified in [[DXP#api-error-responses]].
+
+## Test Case 022: Attempt Action Events with Expired Token ## {#tc022}
+
+Tests the target host system's ability to reject an Events request with an expired access token with
+the correct error response.
+
+### Request ### {#tc022-request}
+
+An Events POST request must be sent to the `/2/events` endpoint of the test target host system with
+an **expired access token** and the syntax specified in [[DXP#api-action-events-request]] (the
+EnventBody is irrelevant).
+
+### Expected Response ### {#tc022-response}
+
+The test target host system must respond with a 401 Unnauthorized and a JSON body that should
+contain the error response `TokenExpired`, as specified in [[DXP#api-error-responses]].
+
+Note: Since the access token is expired, re-authentication should in principle solve the issue. By
+returning the HTTP error code 401 (instead of, e.g., 403), the host system signals that
+re-authentication should be attempted.
+
+## Test Case 023: Attempt Action Events with Invalid Token ## {#tc023}
+
+Tests the target host system's ability to reject an Events request with an invalid access token with
+the correct error response.
+
+### Request ### {#tc023-request}
+
+An Events POST request must be sent to the `/2/events` endpoint of the test target host system with
+an **invalid access token** and the syntax specified in [[DXP#api-action-events-request]] (the
+EnventBody is irrelevant).
+
+Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
+HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
+re-authenticating.
+
+### Expected Response ### {#tc023-response}
+
+The test target host system must respond with a 403 Forbidden and a JSON body containing the error
+response `AccessDenied`, as specified in [[DXP#api-error-responses]].
+
+Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
+HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
+re-authenticating.
+
+## Test Case 024: Attempt Action Events through HTTP (non-HTTPS) ## {#tc024}
+
+According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
+
+Therefore, it is our understanding that host systems must not expose any action-related endpoints
+through http (non-https).
+
+### Request ### {#tc024-request}
+
+An http-only equivalent of the test target host system Events endpoint must be generated,
+replacing "https://" by "http://".
+
+An Events POST request must be sent to the generated http endpoint with the the syntax specified in
+[[DXP#api-action-events-request]] (the access token and EnventBody are irrelevant).
+
+### Expected Response ### {#tc024-response}
+
+No response is expected: the request must not be processed.
+
+
+<pre class=biblio>
+ {
+    "DXP": {
+      "authors": [
+        "Martin Pompéry",
+        "Cecilia Valeri"
+      ],
+      "publisher": "WBCSD",
+      "status": "LD",
+      "title": "PACT Tech Specs V2.2",
+      "href": "https://wbcsd.github.io/data-exchange-protocol/v2/"
+    },
+    "CONNECTATHONS": {
+        "authors": [
+            "Prasad Tilloo",
+            "Raimundo Henriques"
+        ],
+        "publisher": "WBCSD",
+        "status": "LD",
+        "title": "PACT Conformance Testing",
+        "href": "https://wbcsd.github.io/pact-conformance-testing/"
+    }
+  }
+</pre>

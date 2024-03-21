@@ -204,13 +204,13 @@ it. Please Refer below -
 :: PACT Team will conduct a Kickoff before every Connectathon which will cover – Overview of the Conformance Testing
     Process, Introduction of the participants, Logistics (MS Teams channel, Communication / collaboration mechanisms
     between testing partners), Demo of the Online Catalog and How to add Conformance Test Results and Solution to the
-    Catalog, and any Q&A. Participants can decide during this kickoff or post Kickoff who they want to collaborate with
+    Catalog, and any Q&amp;A. Participants can decide during this kickoff or post Kickoff who they want to collaborate with
     for the Conformance Testing
 
-: What are the pre-requisites for participating in the Connectathons? 
+: What are the pre-requisites for participating in the Connectathons?
 :: The main pre-requisites for participating in the Connectathons is that you have a Solution (fully ready or partially ready)
-    that follows Technical Specification V1 or V2. 
-    
+    that follows Technical Specification V1 or V2.
+
     In the cases when your organization doesn't have a Solution yet Or has a Solution but it offers only Data Recipient capabilities (i.e. your
     Solution doesn't provide PCF data as Data Owner per PACT Technical Specifications) then your Organization can still participate in the Connectathon and Conformance Testing process, but in
     these cases your Solution will not be onboarded to the Catalog, but your Organization will be onboarded as "Collaborator" in the PACT Catalog. Please refer to "[this
