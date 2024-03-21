@@ -14,31 +14,33 @@ Markup Shorthands: biblio yes
 Boilerplate: omit conformance, omit copyright
 </pre>
 
-# Background: Definition of Conformance # {#background}
+# Introduction # {#background}
 
-Note: The following section is copied from the tech specs. See the respective technical specification for the latest
-definition.
+Conformance testing is a necessary process to ensure interoperability between independent implementations of the [[!DXP|PACT Technical Specifications]].
 
-A conforming [[DXP#host-system]] is any algorithm realized as
-[host system](https://wbcsd.github.io/data-exchange-protocol/v2/#host-system) is any algorithm realized as
-software and/or hardware that complies with the relevant normative statements in [[DXP#api]].
+This guidance document supports manual [[!CONNECTATHONS|conformance testing processes]] by defining [=required test case|required=] and [=conditional test cases=] that can be executed by a [=testing party=] against the [=target host system=].
+The test cases are designed to verify the functionality of a [=target host system=] against the [[!DXP|PACT Technical Specifications]].
 
-A conforming requesting [data recipient](https://wbcsd.github.io/data-exchange-protocol/v2/#data-recipient) is any
-algorithm realized as software and/or hardware that complies with the relevant normative statements in
-[§6 HTTP REST API](https://wbcsd.github.io/data-exchange-protocol/v2/#api).
+Advisement: This document does not replace the technical specifications. It is possible that there are deviations between this document and the technical specifications. These cases are unintended. This document also does not superseed or otherwise have normative value over the technical specifications.
 
-Click [here](./index.html) to go back to the Conformance Testing guidelines.
 
-# Guidance for PACT Conformant Functionality # {#guidance-functionality}
+# Terminology # {#terminology}
 
-The following section provides guidance on the functionality that is mandatory and optional for a
-host system to be considered conformant with the PACT Technical Specifications.
+: <dfn>Required Test Case</dfn>
+:: Test case relating to MANDATORY functionality
+: <dfn>Conditional Test Case</dfn>
+:: Test cases relating to OPTIONAL functionality.
+: <dfn>Host System</dfn>
+:: see [[DXP#host-system]]
+: <dfn>testing party</dfn>
+:: The party witnessing and perforing the tests. Typically, the tester is a data recipient
+: <dfn>Target Host System</dfn>
+:: The [=host system=] under test. 
 
-Advisement: Support for Action Events will become mandatory in v2.2 of the Technical Specifications.
 
-## Mandatory Functionality ## {#mandatory}
+# Scope of the Test Cases # {#scope}
 
-The following functionality is mandatory for a host system to be considered conformant with the PACT Technical Specifications:
+The test cases cover the following functionality defined by the PACT Technical Specifications: 
 
 - All actions are offered under the `https` method only (i.e., `http` requests are not processed)
 - The endpoint `/auth/token` is exposed (even if a custom `AuthEndpoint` is used for authentication)
@@ -53,25 +55,26 @@ The following functionality is mandatory for a host system to be considered conf
     response](https://wbcsd.github.io/tr/data-exchange-protocol/#error-response) with code
     [NotImplemented](https://wbcsd.github.io/tr/data-exchange-protocol/#notimplemented)
 
-## Optional Functionality ## {#optional}
 
-- The host system implements filtering functionality (see [[DXP#api-action-list-filtering]])
-- The host system implements OpenID Connect-based authentication flow (see [[DXP#api-auth]])
+There are also test cases covering conditional or optional functionality: 
+- filtering of the `ListFootprints` action (see [[DXP#api-action-list-filtering]])
+- OpenID Connect-based authentication flow: (see [[DXP#api-auth]])
+- Action Events (see [[DXP#api-action-events]])
+
+Note: Support for Action Events will become mandatory in v2.2 of the Technical Specifications.
+
+
+# Testing Preparation # {#preparation}
+
+Prior to all tests, the owner of the [=target host system=] must provide the [=testing party=] with 
+1. credentials that the testing party for successful authentication (i.e., a `client_id` and a `client_secret`)
+2. the authentication hostname and path (see [[DXP#authhostname]])
+3. hostname and path used for implementing the different HTTP Actions (see [[DXP#hostname]])
+
 
 # Test Cases for PACT Conformance Testing # {#test-cases}
 
-## Preparation ## {#test-cases-preparation}
-
-Prior to all tests, the test target host system must provide the testing party with the necessary
-credentials (i.e., a `client_id` and a `client_secret`). With these credentials, the testing party
-can retrieve the access token needed for all actions other than Authenticate.
-
-Authentication may be supported through a custom `AuthEndpoint`, in which case the test target host
-system must provide an OpenID Provider Configuration Document with the `AuthEndpoint` as the value
-of the `token_endpoint` field. The test target host system must nevertheless expose the
-`/auth/token` endpoint.
-
-## Mandatory Functionality ## {#test-cases-mandatory}
+## Required Test Cases ## {#required-tests}
 
 ### Test Case 001: Authenticate against `/auth/token` ### {#tc001}
 
@@ -296,7 +299,7 @@ Note: Since the access token is invalid, re-authentication cannot solve the issu
 returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
 there is no gain in re-authenticating.
 
-## Optional Functionality ## {#test-cases-optional}
+## Conditional Test Cases ## {#conditional-tests}
 
 ### Test Case 011: Authenticate against Custom `AuthEndpoint`### {#tc011}
 
@@ -633,8 +636,18 @@ No response is expected: the request must not be processed.
       ],
       "publisher": "WBCSD",
       "status": "LD",
-      "title": "Technical Specifications for PCF Data Exchange (Version 2.1.0)",
+      "title": "PACT Tech Specs V2.2",
       "href": "https://wbcsd.github.io/data-exchange-protocol/v2/"
+    },
+    "CONNECTATHONS": {
+        "authors": [
+            "Prasad Tilloo",
+            "Raimundo Henriques"
+        ],
+        "publisher": "WBCSD",
+        "status": "LD",
+        "title": "PACT Conformance Testing",
+        "href": "https://wbcsd.github.io/pact-conformance-testing/"
     }
   }
 </pre>
