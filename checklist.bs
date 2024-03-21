@@ -83,7 +83,7 @@ Prior to all tests, the owner of the [=target host system=] must provide the [=t
 
 # Required Test Cases # {#required-tests}
 
-## Test Case 001: Authenticate against `/auth/token` ## {#tc001}
+## Test Case 001: Authentication against default endpoint ## {#tc001}
 
 Tests the [=target host system=]'s ability to authenticate a data recipient through
 the [[DXP#api-action-auth|Action Authenticate]] endpoint offered through the default path `/auth/token`:
@@ -95,7 +95,7 @@ system with **correct credentials** the syntax specified in [[DXP#api-action-aut
 credentials need not be correct).
 
 From v2.1 onwards, host systems can also use a custom `AuthEndpoint` for authentication, specified
-in an OpenId Provider Configuration Document.
+in an OpenId Provider Configuration Document. This is tested through [[#tc011]].
 
 ### Expected Response ### {#tc001-response}
 
@@ -109,27 +109,20 @@ must respond with either
     [[DXP#api-action-auth-response]]. In this case, the testing party must execute the test case
     [[#tc012]].
 
-## Test Case 002: Attempt Authentication with Invalid credentials against `/auth/token` ## {#tc002}
+## Test Case 002: Authentication with invalid credentials against default endpoint ## {#tc002}
 
 Tests the target host system's ability to reject an authentication request with invalid
 credentials through the default endpoint `/auth/token`.
 
 ### Request ### {#tc002-request}
 
-An authentication POST request must be sent to the `AuthEndpoint` of the test target host system
-with **incorrect credentials** and the syntax specified in [[DXP#api-action-auth-request]]
+A test case similar to [[#tc001]] but performed with **incorrect credentials** (i.e. the `client id` 
+and/or `client secret` are unknown to the [=target host system=]).
 
 ### Expected Response ### {#tc002-response}
 
-Depending on whether authentication through `/auth/token` is supported, the test target host system
-must respond with either
-
-- 400 Bad Request and a JSON body containing the error `"invalid_client"`, as specified in
-    [[DXP#api-action-auth-response]], or
-
-- 400 Bad Request and a JSON body containing an error, as specified in
-    [[DXP#api-action-auth-response]]. In this case, the testing party must execute the test case
-    [[#tc013]].
+The [=target host system=] responds with `400 Bad Request` and a JSON body containing the error 
+`"invalid_client"`, as specified in [[DXP#api-action-auth-response]].
 
 ## Test Case 003: Get All Footprints ## {#tc003}
 
@@ -140,14 +133,14 @@ Tests the target host system's ability to list all available PCFs.
 A ListFootPrints GET request must be sent to the `/2/footprints` endpoint of the test target host
 system with a **valid access token** and the syntax specified in [[DXP#api-action-list-request]].
 
-No `limit` or `filter` paramenters should be defined for this test.
+No additional request parameters, such as `limit` or `filter`, must be defined.
 
 ### Expected Response ### {#tc003-response}
 
 The test target host system must respond with 200 OK and a JSON body containing the list of all
 available PCFs, as specified in [[DXP#api-action-list-response]].
 
-## Test Case 004: Get Limited List of Footrpints ## {#tc004}
+## Test Case 004: Get Limited List of Footprints ## {#tc004}
 
 Tests the target host system's ability to list a limited number of PCFs when the `limit` parameter
 is set by the data recipient.
@@ -160,42 +153,38 @@ system with the **limit** parameter, a **valid access token** and the syntax spe
 
 ### Expected Response ### {#tc004-response}
 
-The test target host system must respond with either 200 OK or 202 Accepted and a JSON body
-containing a list of PCFs with a length equal to or smaller than the limit set in the request, as
-specified in [[DXP#api-action-list-response]].
-
-Unless the total number of available PCFs is equal to or smaller than the limit set in the request,
-the test target host system must return a `Link` header as specified in
-[[DXP#api-action-list-pagination]].
+The test target host system must respond with
+1. either a HTTP status code `200` "OK" with a response body containing a list of PCFs with a length equal to or
+    smaller than the limit set in the request, as specified in [[DXP#api-action-list-response]].
+    Unless the total number of available PCFs is equal to or smaller than the limit set in the request,
+    the test target host system must return a `Link` header
+2. or a HTTP status code `202` and an empty body
 
 Note: For testing purposes it is recommended to set the limit to a small number (e.g., 2) to ensure
 that pagination is tested.
 
-## Test Case 005: Get Next Page of Footprints ## {#tc005}
+## Test Case 005: Pagination link implementation of Action ListFootprints ## {#tc005}
 
 Note: This test pressuposes the completion of [[#tc004]] and uses the `link` returned in the header.
-If [[#tc004]] fails, this test should be skipped.
+If [[#tc004]] fails, this test can be skipped.
 
-Tests the target host system's ability to return the next page of PCFs when the `link` returned in
-the header of the response to a ListFootPrints call with the `limit` parameter. The target host
-system must return the same page as many times as the `link` is called.  This test must be performed
-within 180 seconds of that call.
+Tests the target host system's ability to return PCFs when the same pagination link, returned through the `link` header, 
+is called multiple times. 
 
 ### Request ### {#tc005-request}
 
-A ListFootPrints GET request must be sent to the URL specified in the `link` of the response header
-obtained through [[#tc004]] with a **valid access token** and the syntax specified in
-[[DXP#api-action-list-request]].
+The [=testing party=] calls the `ListFootprints` action ([[DXP#api-action-list-request]]) 
+with a valid access token such that a `link` header is returned by the [=target host system=]. 
+The [=testing party=] selects a pagination link from a `link` header at random to perform the tests against.
+The [=testing party=] then calls the pagination link 2 or more times.
 
-After the first response, the test must be repeated to ensure that the same page is returned.
+This test must conclude within 180 seconds after the pagination link was retrieved originally.
 
 ### Expected Response ### {#tc005-response}
 
-The test target host system must respond with either 200 OK or 202 Accepted and a JSON body
-containing the next page of PCFs. If this page is the last, the header must not contain a `link` and
-the response must be 200 OK.
-
-This response must take place twice, one per each call to the next page `link`.
+The test target host system must respond with either 200 OK a JSON body
+containing PCFs. The contents of the response bodies should be the same across all calls to the pagination 
+link.
 
 ## Test Case 006: Attempt ListFootprints with Expired Token ## {#tc006}
 
@@ -288,34 +277,68 @@ Note: Since the access token is invalid, re-authentication cannot solve the issu
 returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
 there is no gain in re-authenticating.
 
+
+## Test Case 017: Attempt GetFootprint with Non-Existent PfId ## {#tc017}
+
+Tests the target host system's ability to reject a GetFootprint request with a non-existent `pfId`
+with the correct error response.
+
+
+### Request ### {#tc017-request}
+
+A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
+host system, where `{GetPfId}` is a **non-existent** `pfId`, with a **valid access token** and the
+syntax specified in [[DXP#api-action-get-request]].
+
+### Expected Response ### {#tc017-response}
+
+The test target host system should respond with a 404 Not Found and a JSON body containing the error
+code `NoSuchFootprint`, as specified in [[DXP#api-error-responses]].
+
+
 # Conditional Test Cases # {#conditional-tests}
 
-## Test Case 011: Authenticate against Custom `AuthEndpoint`## {#tc011}
+## Test Case 011: OpenId Connect-based Authentication Flow ## {#tc011}
 
-Tests the target host system's ability to authenticate a requesting data recipient through
+Tests [=target host system=]'s ability to authenticate a requesting data recipient through
 a custom `AuthEndpoint`.
+
+### Condition ### {#tc011-condition}
+
+The [=target host system=] supports the OpenId connect-based authentication flow (see [[DXP#api-auth]]).
 
 ### Request ### {#tc011-request}
 
-An athentication POST request must be sent to the `AuthEndpoint` of the test target host system with
-**correct credentials** and the syntax specified in [[DXP#api-action-auth-request]].
+Following the OpenId Connect-based authentication flow, the [=testing party=] retrieves the
+OpenId Provider Configuration Document.
+
+The [=testing party=] then authenticates through the `AuthEndpoint` referenced in the Configuration Document 
+as specified [[DXP#api-action-auth-request]].
 
 ### Expected Response ### {#tc011-response}
 
-The test target host system must respond with 200 OK and a JSON body containing the access token, as
-specified in [[DXP#api-action-auth-response]].
+1. The [=target host system=] returns a valid OpenId Provider Configuration Document
+2. The test target host system responds with 200 OK and a JSON body containing the access token, as 
+    specified in [[DXP#api-action-auth-response]] upon the [=testing party=] authenticating through the `token` endpoint 
+    referenced in the Configuration Document. 
 
-## Test Case 012: Attempt Authentication with Invalid Credentials against Custom `AuthEndpoint`  ## {#tc012}
+
+## Test Case 012: OpenId connect-based authentication flow with incorrect credentials  ## {#tc012}
+
+### Condition ### {#tc012-condition}
+
+The [=target host system=] supports the OpenId connect-based authentication flow (see [[DXP#api-auth]]).
 
 ### Request ### {#tc012-request}
 
-An authentication POST request must be sent to the `AuthEndpoint` of the test target host system
-with **incorrect credentials** and the syntax specified in [[DXP#api-action-auth-request]].
+The [=testing party=] performs the same flow as in [[#tc011-request]] but with **incorrect credentials**.
 
 ### Expected Response ### {#tc012-response}
 
-The test target host system must respond with a 400 Bad Request and a JSON body containing the error
-`"invalid_client"`, as specified in [[DXP#api-action-auth-response]].
+1. The [=target host system=] returns a valid OpenId Provider Configuration Document
+2. The target host system respons with a 400 Bad Request and a JSON body containing the error 
+    `"invalid_client"`, as specified in [[DXP#api-action-auth-response]].
+
 
 ## Test Case 013: Attempt Authentication through HTTP (non-HTTPS) ## {#tc013}
 
@@ -331,7 +354,9 @@ specified in [[DXP#api-action-auth-request]] (the credentials need not be correc
 
 ### Expected Response ### {#t013-response}
 
-No response is expected: the request must not be processed.
+The [=target host system=] either refuses to process the request 
+(for instance the HTTP port 80 is not open) or responds with an HTTP error response code.
+
 
 ## Test Case 014: Attempt ListFootprints through HTTP (non-HTTPS) ## {#tc014}
 
@@ -347,40 +372,17 @@ specified in [[DXP#api-action-list-request]] (the access token need not be valid
 
 ### Expected Response ### {#tc014-response}
 
-No response is expected: the request must not be processed.
+The [=target host system=] either refuses to process the request 
+(for instance the HTTP port 80 is not open) or responds with an HTTP error response code.
 
-## Test Case 015: Get Previous Page of Footprints ## {#tc015}
-
-Note: This test pressuposes the completion of [[#tc004]] and {#test-listfootprints-next}. If any of
-these fail, this test should be skipped.
-
-According to [[DXP#api-action-list-pagination]], a pagination link might no longer work after a new
-page is requested.
-
-This test presupposes that the test target host system has enough PCFs available to allow for their
-division into three pages.
-
-### Request ### {#tc015-request}
-
-After requesting the second page of footprints through {#test-listfootprints-next}, a ListFootprints
-GET request must be sent to the URL specified in the `link` of the response header (assuming there
-is one) with a **valid access token** and the syntax specified in [[DXP#api-action-list-request]].
-At that point, the third page of PCFs should be returned.
-
-The URL specified in the `link` of the response header of the second page must be stored. A
-ListFootprints GET request must be sent to this URL with a **valid access token** and the syntax
-specified in [[DXP#api-action-list-request]].
-
-### Expected Response ### {#tc015-response}
-
-The test target host system may respond with either
-- 200 OK or 202 Accepted and a JSON body containing the corresponding page of PCFs, or
-- an error http status code and a JSON body containing an error response.
 
 ## Test Case 016: Get Filtered List of Footprints ## {#tc016}
 
-Support for filtering is optional and, when supported, it can be processed in a best-effort basis,
-as specified in [[DXP#api-action-list-filtering]].
+Tests the filtering implementation of a [=target host system=]'s ListFootprints action (see [[DXP#api-action-list-filtering]]).
+
+### Condition ### {#tc017-condition}
+
+The [=target host system=] supports filtering.
 
 ### Request ### {#tc016-request}
 
@@ -393,23 +395,8 @@ system with the **filter** parameter, a **valid access token** and the syntax sp
 The test target host system should respond with 200 OK and a JSON body containing a list of PCFs
 matching the filtering criteria.
 
-## Test Case 017: Attempt GetFootprint with Non-Existent PfId ## {#tc017}
 
-Tests the target host system's ability to reject a GetFootprint request with a non-existent `pfId`
-with the correct error response.
-
-### Request ### {#tc017-request}
-
-A GetFootprint GET request must be sent to the `/2/footprints/{GetPfId}` endpoint of the test target
-host system, where `{GetPfId}` is a **non-existent** `pfId`, with a **valid access token** and the
-syntax specified in [[DXP#api-action-get-request]].
-
-### Expected Response ### {#tc017-response}
-
-The test target host system should respond with a 404 Not Found and a JSON body containing the error
-code `NoSuchFootprint`, as specified in [[DXP#api-error-responses]].
-
-### Test Case 018: Attempt GetFootprint through HTTP (non-HTTPS) ### {#tc018}
+## Test Case 018: Attempt GetFootprint through HTTP (non-HTTPS) ## {#tc018}
 
 According to [[DXP#api-requirements]], a host system must offer its actions under https method only.
 
@@ -426,11 +413,13 @@ in [[DXP#api-action-get-request]] (the GetPfId need not exist).
 
 ### Expected Response ### {#tc018-response}
 
-No response is expected: the request must not be processed.
+The [=target host system=] either refuses to process the request 
+(for instance the HTTP port 80 is not open) or responds with an HTTP error response code.
+
 
 ## Test Case 019: Receive Notification of PCF Update ## {#tc019}
 
-Advisement: This test case will become mandatory in v2.2 of the Technical Specifications.
+Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
 
 Tests the target host system's ability to be notified of a PCF update.
 
@@ -448,7 +437,7 @@ notification, the corresponding PCF must be returned.
 
 ## Test Case 020: Notify of PCF Update ## {#tc020}
 
-Advisement: This test case will become mandatory in v2.2 of the Technical Specifications.
+Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
 
 Tests the target host system's ability to notify a data recipient of a PCF update.
 
@@ -473,7 +462,7 @@ Otherwise, it should respond with 400 Bad Request and a JSON body containing the
 
 ## Test Case 021: Asynchronous PCF Request ## {#tc021}
 
-Advisement: This test case will become mandatory in v2.2 of the Technical Specifications.
+Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
 
 Tests the target host system's ability to receive an asynchronous PCF request.
 
@@ -488,7 +477,7 @@ The test target host system must respond with 200 OK.
 
 ## Test Case 022: Respond to Asynchronous PCF Request ## {#tc022}
 
-Advisement: This test case will become mandatory in v2.2 of the Technical Specifications.
+Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
 
 Tests the target host system's ability to respond to an asynchronous PCF request.
 
