@@ -10,6 +10,7 @@ Editor: Raimundo Henriques (SINE Foundation), https://sine.foundation, raimundo@
 Repository: wbcsd/pact-conformance-testing/
 Abstract: Checklist for conformance testing within the PACT ecosystem.
 Markup Shorthands: markdown yes
+Markup Shorthands: biblio yes
 Boilerplate: omit conformance, omit copyright
 </pre>
 
@@ -18,9 +19,9 @@ Boilerplate: omit conformance, omit copyright
 Note: The following section is copied from the tech specs. See the respective technical specification for the latest
 definition.
 
-A conforming [host system](https://wbcsd.github.io/data-exchange-protocol/v2/#host-system) is any algorithm realized as
-software and/or hardware that complies with the relevant normative statements in
-[§6 HTTP REST API](https://wbcsd.github.io/data-exchange-protocol/v2/#api).
+A conforming [[DXP#host-system]] is any algorithm realized as
+[host system](https://wbcsd.github.io/data-exchange-protocol/v2/#host-system) is any algorithm realized as
+software and/or hardware that complies with the relevant normative statements in [[DXP#api]].
 
 A conforming requesting [data recipient](https://wbcsd.github.io/data-exchange-protocol/v2/#data-recipient) is any
 algorithm realized as software and/or hardware that complies with the relevant normative statements in
@@ -54,11 +55,8 @@ The following functionality is mandatory for a host system to be considered conf
 
 ## Optional Functionality ## {#optional}
 
-- The host system supports [Action
-    Events](https://wbcsd.github.io/tr/data-exchange-protocol/#api-action-events)
-- The host system implements the [filtering
-    functionality](https://wbcsd.github.io/tr/data-exchange-protocol/#filter) of the ListFootprints
-    action
+- The host system implements filtering functionality (see [[DXP#api-action-list-filtering]])
+- The host system implements OpenID Connect-based authentication flow (see [[DXP#api-auth]])
 
 # Test Cases for PACT Conformance Testing # {#test-cases}
 
@@ -624,3 +622,19 @@ access token and EnventBody are irrelevant).
 #### Expected Response #### {#tc025-response}
 
 No response is expected: the request must not be processed.
+
+
+<pre class=biblio>
+ {
+    "DXP": {
+      "authors": [
+        "Martin Pompéry",
+        "Cecilia Valeri"
+      ],
+      "publisher": "WBCSD",
+      "status": "LD",
+      "title": "Technical Specifications for PCF Data Exchange (Version 2.1.0)",
+      "href": "https://wbcsd.github.io/data-exchange-protocol/v2/"
+    }
+  }
+</pre>
