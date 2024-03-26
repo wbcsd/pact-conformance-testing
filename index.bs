@@ -141,7 +141,7 @@ Solutions (Pass/Fail)
 <strong>Connectathon</strong>, especially in case when issues have been resolved or support for new versions (related to
 the data exchange protocol or 1 or more data model extensions) was added to a previously-tested implementation
 <li> Organizations are encouraged to onboard their solution to the PACT Catalog and to upload conformance results
-there as well (see [here](https://github.com/sine-fdn/pact-catalog/blob/main/CONTRIB_SOLUTION.md#6-create-a-new-json-file-in-the-conformance-tests-directory)
+there as well (see [here](https://github.com/wbcsd/pact-catalog/blob/main/CONTRIB_SOLUTION.md#6-create-a-new-json-file-in-the-conformance-tests-directory)
 for details)
 <li> The Conformance Testing process is <strong>periodically reviewed, updated, and scope expanded</strong> (see
 [[#out-of-scope]]) to reflect changes in the organization's standards and requirements, as well as feedback received
