@@ -217,12 +217,8 @@ system with an **invalid access token** and the syntax specified in [[DXP#api-ac
 
 ### Expected Response ### {#tc007-response}
 
-The test target host system must respond with a 403 Forbidden and a JSON body containing the error
-response `AccessDenied`, as specified in [[DXP#api-error-responses]].
-
-Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
-HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
-re-authenticating.
+The test target host system should respond with a 400 BadRequest and a JSON body containing the error
+response `BadRequest`, as specified in [[DXP#api-error-responses]].
 
 ## Test Case 008: Get Footprint ## {#tc008}
 
@@ -270,13 +266,8 @@ host system with an **invalid access token** and the syntax specified in
 
 ### Expected Response ### {#tc010-response}
 
-The test target host system must respond with a 403 Forbidden and a JSON body containing the error
-response `AccessDenied`, as specified in [[DXP#api-error-responses]].
-
-Note: Since the access token is invalid, re-authentication cannot solve the issue. By
-returning the HTTP error code 403 (instead of, e.g., 401), the host system signals that
-there is no gain in re-authenticating.
-
+The test target host system should respond with a 400 BadRequest and a JSON body containing the error
+response `BadRequest`, as specified in [[DXP#api-error-responses]].
 
 ## Test Case 011: Attempt GetFootprint with Non-Existent PfId ## {#tc011}
 
@@ -336,7 +327,7 @@ The [=testing party=] performs the same flow as in [[#tc012-request]] but with *
 ### Expected Response ### {#tc013-response}
 
 1. The [=target host system=] returns a valid OpenId Provider Configuration Document
-2. The target host system respons with a 400 Bad Request and a JSON body containing the error
+2. The target host system respons with a 400 BadRequest and a JSON body containing the error
     `"invalid_client"`, as specified in [[DXP#api-action-auth-response]].
 
 
@@ -530,18 +521,10 @@ An Events POST request must be sent to the `/2/events` endpoint of the test targ
 an **invalid access token** and the syntax specified in [[DXP#api-action-events-request]] (the
 EnventBody is irrelevant).
 
-Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
-HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
-re-authenticating.
-
 ### Expected Response ### {#tc023-response}
 
-The test target host system must respond with a 403 Forbidden and a JSON body containing the error
-response `AccessDenied`, as specified in [[DXP#api-error-responses]].
-
-Note: Since the access token is invalid, re-authentication cannot solve the issue. By returning the
-HTTP error code 403 (instead of, e.g., 401), the host system signals that there is no gain in
-re-authenticating.
+The test target host system should respond with a 400 BadRequest and a JSON body containing the error
+response `BadRequest`, as specified in [[DXP#api-error-responses]].
 
 ## Test Case 024: Attempt Action Events through HTTP (non-HTTPS) ## {#tc024}
 
