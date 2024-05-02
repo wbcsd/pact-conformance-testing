@@ -32,7 +32,7 @@ Advisement: This document does not replace the technical specifications. It is p
 : <dfn>Host System</dfn>
 :: see [[DXP#host-system]]
 : <dfn>testing party</dfn>
-:: The party witnessing and perforing the tests. Typically, the tester is a data recipient
+:: The party witnessing and performing the tests. Typically, the tester is a data recipient
 : <dfn>Target Host System</dfn>
 :: The [=host system=] under test.
 
@@ -91,7 +91,7 @@ the [[DXP#api-action-auth|Action Authenticate]] endpoint offered through the def
 ### Request ### {#tc001-request}
 
 An authentication POST request must be sent to the `auth/token` endpoint of the test target host
-system with **correct credentials** the syntax specified in [[DXP#api-action-auth-request]] (the
+system with **correct credentials**, as per the syntax specified in [[DXP#api-action-auth-request]] (the
 credentials need not be correct).
 
 From v2.1 onwards, host systems can also use a custom `AuthEndpoint` for authentication, specified
@@ -165,7 +165,7 @@ that pagination is tested.
 
 ## Test Case 005: Pagination link implementation of Action ListFootprints ## {#tc005}
 
-Note: This test pressuposes the completion of [[#tc004]] and uses the `link` returned in the header.
+Note: This test presupposes the completion of [[#tc004]] and uses the `link` returned in the header.
 If [[#tc004]] fails, this test can be skipped.
 
 Tests the target host system's ability to return PCFs when the same pagination link, returned through the `link` header,
@@ -198,7 +198,7 @@ system with an **expired access token** and the syntax specified in [[DXP#api-ac
 
 ### Expected Response ### {#tc006-response}
 
-The test target host system must respond with a 401 Unnauthorized and a JSON body that should
+The test target host system must respond with a 401 Unauthorized and a JSON body that should
 contain the error response `TokenExpired`, as specified in [[DXP#api-error-responses]].
 
 Note: Since the access token is expired, re-authentication should in principle solve the issue. By
