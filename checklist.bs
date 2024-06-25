@@ -5,7 +5,7 @@ Level: 2
 Status: LD
 URL: https://wbcsd.github.io/pact-conformance-testing/checklist
 Mailing List: pact@wbcsd.org
-Editor: Beth Hadley (WBCSD), https://www.wbcsd.org, hadley@wbcsd.org
+Editor: Arunav Chakravarty (WBCSD), https://www.wbcsd.org, chakravarty@wbcsd.org
 Former Editor: Martin Pompéry (SINE Foundation), https://sine.foundation, martin@sine.foundation
 Former Editor: Prasad Tilloo (SINE Foundation), https://sine.foundation, prasad@sine.foundation
 Former Editor: Raimundo Henriques (SINE Foundation), https://sine.foundation, raimundo@sine.foundation
