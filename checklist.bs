@@ -21,7 +21,7 @@ Boilerplate: omit conformance, omit copyright
 
 Conformance testing is a necessary process to ensure interoperability between independent implementations of the [[!DXP|PACT Technical Specifications]].
 
-This guidance document supports manual [[!CONNECTATHONS|conformance testing processes]] by defining [=required test case|required=] and [=conditional test cases=].
+This guidance document supports manual [[!CONNECTATHONS|conformance testing processes]] by defining [=required test case|required=] and [=optional test cases=].
 Advisement: This document does not replace the technical specifications. It is possible that there are deviations between this document and the technical specifications. These cases are unintended. This document also does not superseed or otherwise have normative value over the technical specifications.
 
 
@@ -29,7 +29,7 @@ Advisement: This document does not replace the technical specifications. It is p
 
 : <dfn>Required Test Case</dfn>
 :: Test case relating to MANDATORY functionality
-: <dfn>Conditional Test Case</dfn>
+: <dfn>Optional Test Case</dfn>
 :: Test cases relating to OPTIONAL functionality.
 : <dfn>Host System</dfn>
 :: see [[DXP#host-system]]
@@ -59,7 +59,7 @@ Test cases for the following functionality are defined in [[#required-tests]]:
     authenticated Action Events calls with an [[DXP#error-response|error response]] with code
     [[DXP#notimplemented|NotImplemented]].
 
-There are also test cases for conditional or optional functionality defined in [[#conditional-tests]]:
+There are also test cases for optional functionality defined in [[#optional-tests]]:
 
 - filtering of the `ListFootprints` action (see [[DXP#api-action-list-filtering]])
 - OpenID Connect-based authentication flow (see [[DXP#api-auth]])
@@ -289,7 +289,7 @@ The test target host system should respond with a 404 Not Found and a JSON body 
 code `NoSuchFootprint`, as specified in [[DXP#api-error-responses]].
 
 
-# Conditional Test Cases # {#conditional-tests}
+# Optional Test Cases # {#optional-tests}
 
 ## Test Case 012: OpenId Connect-based Authentication Flow ## {#tc012}
 
