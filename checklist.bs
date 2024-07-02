@@ -22,6 +22,7 @@ Boilerplate: omit conformance, omit copyright
 Conformance testing is a necessary process to ensure interoperability between independent implementations of the [[!DXP|PACT Technical Specifications]].
 
 This guidance document supports manual [[!CONNECTATHONS|conformance testing processes]] by defining [=required test case|required=] and [=optional test cases=]. This document is intended to be used as a checklist to validate conformance to any version of the Technical Specifications. The Required test cases indicate mandatory functionality per the latest version of the Technical Specification. When functionality is optional in the version of the specification an organization is testing conformance to, that test case is considered optional.
+
 Advisement: This document does not replace the technical specifications. It is possible that there are deviations between this document and the technical specifications. These cases are unintended. This document also does not superseed or otherwise have normative value over the technical specifications.
 
 
