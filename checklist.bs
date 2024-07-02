@@ -21,16 +21,16 @@ Boilerplate: omit conformance, omit copyright
 
 Conformance testing is a necessary process to ensure interoperability between independent implementations of the [[!DXP|PACT Technical Specifications]].
 
-This guidance document supports manual [[!CONNECTATHONS|conformance testing processes]] by defining [=required test case|required=] and [=optional test cases=].
+This guidance document supports manual [[!CONNECTATHONS|conformance testing processes]] by defining [=required test case|required=] and [=optional test cases=]. This document is intended to be used as a checklist to validate conformance to any version of the Technical Specifications. The Required test cases indicate mandatory functionality per the latest version of the Technical Specification. When functionality is optional in the version of the specification an organization is testing conformance to, that test case is considered optional.
 Advisement: This document does not replace the technical specifications. It is possible that there are deviations between this document and the technical specifications. These cases are unintended. This document also does not superseed or otherwise have normative value over the technical specifications.
 
 
 # Terminology # {#terminology}
 
 : <dfn>Required Test Case</dfn>
-:: Test case relating to MANDATORY functionality
+:: Test case relating to MANDATORY functionality per the latest version of the Technical Specifications.
 : <dfn>Optional Test Case</dfn>
-:: Test cases relating to OPTIONAL functionality.
+:: Test cases relating to OPTIONAL functionality per the latest version of the Technical Specifications.
 : <dfn>Host System</dfn>
 :: see [[DXP#host-system]]
 : <dfn>testing party</dfn>
@@ -290,8 +290,6 @@ code `NoSuchFootprint`, as specified in [[DXP#api-error-responses]].
 
 ## Test Case 012: Receive Notification of PCF Update ## {#tc012}
 
-Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
-
 Tests the target host system's ability to be notified of a PCF update.
 
 ### Request ### {#tc012-request}
@@ -307,8 +305,6 @@ If the test target host system calls the GetFootprint action with the `pfId` inc
 notification, the corresponding PCF must be returned.
 
 ## Test Case 013: Notify of PCF Update ## {#tc013}
-
-Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
 
 Tests the target host system's ability to notify a data recipient of a PCF update.
 
@@ -333,8 +329,6 @@ Otherwise, it should respond with 400 Bad Request and a JSON body containing the
 
 ## Test Case 014: Asynchronous PCF Request ## {#tc014}
 
-Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
-
 Tests the target host system's ability to receive an asynchronous PCF request.
 
 ### Request ### {#tc014-request}
@@ -347,8 +341,6 @@ specified in [[DXP#api-action-events-case-2-request]].
 The test target host system must respond with 200 OK.
 
 ## Test Case 015: Respond to Asynchronous PCF Request ## {#tc015}
-
-Advisement: This test case will become mandatory test case with the release of version 2.2 of the Technical Specifications.
 
 Tests the target host system's ability to respond to an asynchronous PCF request.
 
