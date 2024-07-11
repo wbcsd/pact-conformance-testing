@@ -289,59 +289,20 @@ syntax specified in [[DXP#api-action-get-request]].
 The test target host system should respond with a 404 Not Found and a JSON body containing the error
 code `NoSuchFootprint`, as specified in [[DXP#api-error-responses]].
 
-## Test Case 012: Receive Notification of PCF Update ## {#tc012}
+## Test Case 012: Asynchronous PCF Request ## {#tc012}
 
-Tests the target host system's ability to be notified of a PCF update.
+Tests the target host system's ability to receive an asynchronous PCF request.
 
 ### Request ### {#tc012-request}
 
 A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
-specified in [[DXP#api-action-events-case-1]].
+specified in [[DXP#api-action-events-case-2-request]].
 
 ### Expected Response ### {#tc012-response}
 
-The test target host system must respond with 200 OK and an empty body.
-
-If the test target host system calls the GetFootprint action with the `pfId` included in the
-notification, the corresponding PCF must be returned.
-
-## Test Case 013: Notify of PCF Update ## {#tc013}
-
-Tests the target host system's ability to notify a data recipient of a PCF update.
-
-Note: For this test case, the data owner is the test target host system and the data recipient is
-the testing party. Accordingly, the latter must be conformant with [[DXP#api-action-events]] and
-behave in accordance if the functionality is not implemented.
-
-### Request ### {#tc013-request}
-
-The test target host system must authenticate with the testing party (performing the customary
-[[DXP#api-auth|Authentication Flow]] and obtain an access token.
-
-The test target host system must send a POST request to the testing party's `/2/events` endpoint
-with a valid access token and the syntax specified in [[DXP#api-action-events-case-1]].
-
-### Expected Response ### {#tc013-response}
-
-If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
-
-Otherwise, it should respond with 400 Bad Request and a JSON body containing the error response
-`NotImplemented`, as specified in [[DXP#api-error-responses]].
-
-## Test Case 014: Asynchronous PCF Request ## {#tc014}
-
-Tests the target host system's ability to receive an asynchronous PCF request.
-
-### Request ### {#tc014-request}
-
-A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
-specified in [[DXP#api-action-events-case-2-request]].
-
-### Expected Response ### {#tc014-response}
-
 The test target host system must respond with 200 OK.
 
-## Test Case 015: Respond to Asynchronous PCF Request ## {#tc015}
+## Test Case 013: Respond to Asynchronous PCF Request ## {#tc013}
 
 Tests the target host system's ability to respond to an asynchronous PCF request.
 
@@ -350,7 +311,7 @@ the testing party. Accordingly, the latter must be conformant with [[DXP#api-act
 behave in accordance if the functionality is not implemented. This test assumes the completion
 of [[#tc014]] and should be skipped if it failed.
 
-### Request ### {#tc015-request}
+### Request ### {#tc013-request}
 
 The test target host system must authenticate with the testing party (performing the customary
 [[DXP#api-auth|Authentication Flow]]) and obtain an access token.
@@ -358,7 +319,7 @@ The test target host system must authenticate with the testing party (performing
 The test target host system must send a POST request to the testing party's `/2/events` endpoint
 with a valid access token and the syntax specified in [[DXP#api-action-events-case-2-response]].
 
-### Expected Response ### {#tc015-response}
+### Expected Response ### {#tc013-response}
 
 If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
 
@@ -366,6 +327,45 @@ Otherwise, it should respond with 400 Bad Request and a JSON body containing the
 `NotImplemented`, as specified in [[DXP#api-error-responses]].
 
 # Optional Test Cases # {#optional-tests}
+
+## Test Case 014: Receive Notification of PCF Update ## {#tc014}
+
+Tests the target host system's ability to be notified of a PCF update.
+
+### Request ### {#tc014-request}
+
+A POST request must be sent to the test target host system's `/2/events` endpoint with the syntax
+specified in [[DXP#api-action-events-case-1]].
+
+### Expected Response ### {#tc014-response}
+
+The test target host system must respond with 200 OK and an empty body.
+
+If the test target host system calls the GetFootprint action with the `pfId` included in the
+notification, the corresponding PCF must be returned.
+
+## Test Case 015: Notify of PCF Update ## {#tc015}
+
+Tests the target host system's ability to notify a data recipient of a PCF update.
+
+Note: For this test case, the data owner is the test target host system and the data recipient is
+the testing party. Accordingly, the latter must be conformant with [[DXP#api-action-events]] and
+behave in accordance if the functionality is not implemented.
+
+### Request ### {#tc015-request}
+
+The test target host system must authenticate with the testing party (performing the customary
+[[DXP#api-auth|Authentication Flow]] and obtain an access token.
+
+The test target host system must send a POST request to the testing party's `/2/events` endpoint
+with a valid access token and the syntax specified in [[DXP#api-action-events-case-1]].
+
+### Expected Response ### {#tc015-response}
+
+If the testing party has implemented the Events functionality, it should respond with 200 OK and an empty body.
+
+Otherwise, it should respond with 400 Bad Request and a JSON body containing the error response
+`NotImplemented`, as specified in [[DXP#api-error-responses]].
 
 ## Test Case 016: OpenId Connect-based Authentication Flow ## {#tc016}
 
