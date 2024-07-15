@@ -140,8 +140,19 @@ No additional request parameters, such as `limit` or `filter`, must be defined.
 
 ### Expected Response ### {#tc003-response}
 
-The test target host system must respond with 200 OK and a JSON body containing the list of all
-available PCFs, as specified in [[DXP#api-action-list-response]].
+Depending on whether PCFs can be delivered or not, the test target host system should respond with 
+one of the following answers:
+
+- 200 OK and a JSON body containing the list of all
+    available PCFs, as specified in [[DXP#api-action-list-response]], or
+
+- 202 ACCEPTED and a JSON body containing the list of some
+    available PCFs, as specified in [[DXP#api-action-list-response]], or
+
+- 400 BAD REQUEST and a JSON body containing an error, as specified in
+    [[DXP#api-action-auth-response]] To indicate that Action events should 
+    be used to retrieve PCF values.
+    In this case, the testing party must execute the test case [[#tc012]].
 
 ## Test Case 004: Get Limited List of Footprints ## {#tc004}
 
@@ -157,11 +168,19 @@ system with the **limit** parameter, a **valid access token** and the syntax spe
 ### Expected Response ### {#tc004-response}
 
 The test target host system must respond with
-1. either an HTTP status code `200` "OK" with a response body containing a list of PCFs with a length equal to or
-    smaller than the limit set in the request, as specified in [[DXP#api-action-list-response]].
-    Unless the total number of available PCFs is equal to or smaller than the limit set in the request,
-    the test target host system must return a `Link` header
-2. or an HTTP status code `202` and an empty body
+- 200 OK and a JSON body containing the list of all
+    available PCFs, as specified in [[DXP#api-action-list-response]]
+    Unless the total number of available PCFs is equal to or smaller 
+    than the limit set in the request, the test target host system 
+    must return a `Link` header, or
+
+- 202 ACCEPTED and a JSON body containing the list of some
+    available PCFs, as specified in [[DXP#api-action-list-response]], or
+
+- 400 BAD REQUEST and a JSON body containing an error, as specified in
+    [[DXP#api-action-list-response]]] To indicate that Action events should 
+    be used to retrieve PCF values.
+    In this case, the testing party must execute the test case [[#tc012]].
 
 Note: For testing purposes it is recommended to set the limit to a small number (e.g., 2) to ensure
 that pagination is tested.
@@ -169,7 +188,7 @@ that pagination is tested.
 ## Test Case 005: Pagination link implementation of Action ListFootprints ## {#tc005}
 
 Note: This test presupposes the completion of [[#tc004]] and uses the `link` returned in the header.
-If [[#tc004]] fails, this test can be skipped.
+If [[#tc004]] didn't return HTTP-200 and a pagination link, this test can be skipped.
 
 Tests the target host system's ability to return PCFs when the same pagination link, returned through the `link` header,
 is called multiple times.
@@ -239,6 +258,15 @@ host system with a **valid access token** and the syntax specified in
 The test target host system must respond with 200 OK and a JSON body containing the PCF with the
 requested `pfId`, as specified in [[DXP#api-action-get-response]].
 
+The test target host system must respond with
+- 200 OK and a JSON body containing the PCF with the
+    requested `pfId`, as specified in [[DXP#api-action-get-response]], or
+
+- 400 BAD REQUEST and a JSON body containing an error, as specified in
+    [[DXP#api-action-get-response]] To indicate that Action events should 
+    be used to retrieve PCF values.
+    In this case, the testing party must execute the test case [[#tc012]].
+
 ## Test Case 009: Attempt GetFootprint with Expired Token ## {#tc009}
 
 Tests the target host system's ability to reject a GetFootprint request with an expired access token
@@ -289,6 +317,14 @@ syntax specified in [[DXP#api-action-get-request]].
 The test target host system should respond with a 404 Not Found and a JSON body containing the error
 code `NoSuchFootprint`, as specified in [[DXP#api-error-responses]].
 
+The test target host system must respond with
+- 404 NOT FOUND and a JSON body containing the error code `NoSuchFootprint`,
+    as specified in [[DXP#api-error-responses]], or
+
+- 400 BAD REQUEST and a JSON body containing an error, as specified in
+    [[DXP#api-action-get-response]] To indicate that Action events should 
+    be used to retrieve PCF values.
+
 ## Test Case 012: Asynchronous PCF Request ## {#tc012}
 
 Tests the target host system's ability to receive an asynchronous PCF request.
@@ -307,9 +343,7 @@ The test target host system must respond with 200 OK.
 Tests the target host system's ability to respond to an asynchronous PCF request.
 
 Note: For this test case, the data owner is the test target host system and the data recipient is
-the testing party. Accordingly, the latter must be conformant with [[DXP#api-action-events]] and
-behave in accordance if the functionality is not implemented. This test assumes the completion
-of [[#tc014]] and should be skipped if it failed.
+the testing party. Accordingly, the latter must be conformant with [[DXP#api-action-events]].
 
 ### Request ### {#tc013-request}
 
