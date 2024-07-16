@@ -109,7 +109,7 @@ must respond with either
     [[DXP#api-action-auth-response]], or
 
 - 400 Bad Request and a JSON body containing an error, as specified in
-    [[DXP#api-action-auth-response]]. In this case, the testing party must execute the test case
+    [[DXP#api-error-responses]]. In this case, the testing party must execute the test case
     [[#tc016]].
 
 ## Test Case 002: Authentication with invalid credentials against default endpoint ## {#tc002}
@@ -150,7 +150,7 @@ one of the following answers:
     available PCFs, as specified in [[DXP#api-action-list-response]], or
 
 - 400 BAD REQUEST and a JSON body containing an error, as specified in
-    [[DXP#api-action-auth-response]] To indicate that Action events should 
+    [[DXP#api-error-responses]] To indicate that Action events should 
     be used to retrieve PCF values.
     In this case, the testing party must execute the test case [[#tc012]].
 
@@ -178,7 +178,7 @@ The test target host system must respond with
     available PCFs, as specified in [[DXP#api-action-list-response]], or
 
 - 400 BAD REQUEST and a JSON body containing an error, as specified in
-    [[DXP#api-action-list-response]]] To indicate that Action events should 
+    [[DXP#api-error-responses]] To indicate that Action events should 
     be used to retrieve PCF values.
     In this case, the testing party must execute the test case [[#tc012]].
 
@@ -263,7 +263,7 @@ The test target host system must respond with
     requested `pfId`, as specified in [[DXP#api-action-get-response]], or
 
 - 400 BAD REQUEST and a JSON body containing an error, as specified in
-    [[DXP#api-action-get-response]] To indicate that Action events should 
+    [[DXP#api-error-responses]] To indicate that Action events should 
     be used to retrieve PCF values.
     In this case, the testing party must execute the test case [[#tc012]].
 
@@ -322,7 +322,7 @@ The test target host system must respond with
     as specified in [[DXP#api-error-responses]], or
 
 - 400 BAD REQUEST and a JSON body containing an error, as specified in
-    [[DXP#api-action-get-response]] To indicate that Action events should 
+    [[DXP#api-error-responses]] To indicate that Action events should 
     be used to retrieve PCF values.
 
 ## Test Case 012: Asynchronous PCF Request ## {#tc012}
