@@ -1,5 +1,5 @@
 > [!CAUTION]
-> This repository has been deprecated as of April 2025. The documentation in this repository is no longer relevant.
+> This repository has been archived as of April 2025. The documentation in this repository is no longer relevant.
 
 # pact-conformance-testing
 Repository for maintaining key documentation around PACT Conformance Testing
